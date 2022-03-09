@@ -18,4 +18,8 @@
 
 ## MUI
 
-- [Next.Js + MUI v5 tutorial](https://dev.to/hajhosein/nextjs-mui-v5-tutorial-2k35)
+- Initial configuration of MUI in NextJS
+  - [Next.Js + MUI v5 tutorial](https://dev.to/hajhosein/nextjs-mui-v5-tutorial-2k35)
+- NextJS `Link` component with `MUI` button.
+  - Wrap MUI button with NextJS Link component and pass `passHref` to Link.
+  - [Using Next.js Link Component with Material UI Buttons and Menu Items](https://dev.to/ivandotv/using-next-js-link-component-with-material-ui-buttons-and-menu-items-3m6a)
