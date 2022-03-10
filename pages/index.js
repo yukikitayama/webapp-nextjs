@@ -5,8 +5,9 @@ import { Grid } from "@mui/material";
 
 import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
+import { getFeaturedArticles } from "../helper/article-util";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <Fragment>
       <Head>
@@ -25,9 +26,19 @@ export default function Home() {
           <Hero />
         </Grid>
         <Grid item xs={12}>
-          <FeaturedArticle />
+          <FeaturedArticle articles={props.articles} />
         </Grid>
       </Grid>
     </Fragment>
   );
+}
+
+export function getStaticProps() {
+  const featuredArticles = getFeaturedArticles();
+
+  return {
+    props: {
+      articles: featuredArticles
+    }
+  };
 }

@@ -1,6 +1,8 @@
 import ReactMarkdown from 'react-markdown';
 
-function ArticleContent() {
+function ArticleContent(props) {
+  const { article } = props;
+
   const content = `# Title
 
   Some content
@@ -10,7 +12,7 @@ function ArticleContent() {
   `;
 
   return <article>
-    <ReactMarkdown>{content}</ReactMarkdown>
+    <ReactMarkdown>{article.content}</ReactMarkdown>
   </article>
 }
 

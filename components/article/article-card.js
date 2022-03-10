@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import Link from "next/link";
 import {
   Card,
   CardActions,
@@ -6,30 +7,53 @@ import {
   CardMedia,
   Button,
   Typography,
+  LinearProgress,
 } from "@mui/material";
 
-const ArticleCard = () => {
+const ArticleCard = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { slug, title, date, image, excerpt } = props.article;
+
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  const imagePath = `/images/article/${slug}/${image}`;
+  const linkPath = `/article/${slug}`;
+
+  const cardClickHandler = () => {
+    setIsLoading(true);
+  };
+
   return (
     <Fragment>
-      <Card>
-        <CardMedia
-          component="img"
-          height="150"
-          image="/images/article/security.jpg"
-          alt="Image"
-        />
-        <CardContent>
-          <Typography variant="h5" component="div">
-            TITLE
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            EXCERPT
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Read More</Button>
-        </CardActions>
-      </Card>
+      <Link href={linkPath} passHref>
+        <a>
+          <Card onClick={cardClickHandler}>
+            <CardMedia
+              component="img"
+              height="150"
+              image={imagePath}
+              alt="Image"
+            />
+            <CardContent>
+              <Typography variant="h5" component="div">
+                {title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {excerpt}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small" color="inherit">
+                Read More
+              </Button>
+            </CardActions>
+            {isLoading && <LinearProgress />}
+          </Card>
+        </a>
+      </Link>
     </Fragment>
   );
 };
