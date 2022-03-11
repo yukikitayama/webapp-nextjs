@@ -4,9 +4,16 @@ import ArticleContent from "../../components/article/article-content";
 import { getArticleData, getArticlesFiles } from '../../helper/article-util';
 
 function ArticleContentPage(props) {
+  const { article } = props;
+
+  // For fallback is true in getStaticPaths()
+  // if (!article) {
+  //   return <p>Loading...</p>
+  // }
+
   return (
     <Fragment>
-      <ArticleContent article={props.article} />
+      <ArticleContent article={article} />
     </Fragment>
   );
 }
@@ -29,13 +36,15 @@ export function getStaticProps(context) {
 }
 
 export function getStaticPaths() {
+  // Pre-generate all the dynamic path segments, slugs to make getStaticProps() work
   const articleFilenames = getArticlesFiles();
-
   const slugs = articleFilenames.map((fileName) => fileName.replace(/\.md$/, ""));
 
   return {
     paths: slugs.map((slug) => ({ params: { slug: slug } })),
     fallback: false
+    // fallback: true
+    // fallback: 'blocking'
   }
 }
 
