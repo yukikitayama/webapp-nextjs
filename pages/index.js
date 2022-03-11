@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 
 import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
+import ExpenseNow from "../components/home-page/expense-now";
 import { getFeaturedArticles } from "../helper/article-util";
 
 export default function Home(props) {
@@ -21,12 +22,16 @@ export default function Home(props) {
         justifyContent="center"
         alignItems="center"
         spacing={2}
+        pb={10}
       >
         <Grid item xs={12}>
           <Hero />
         </Grid>
         <Grid item xs={12}>
           <FeaturedArticle articles={props.articles} />
+        </Grid>
+        <Grid item xs={12}>
+          <ExpenseNow />
         </Grid>
       </Grid>
     </Fragment>
@@ -38,7 +43,7 @@ export function getStaticProps() {
 
   return {
     props: {
-      articles: featuredArticles
-    }
+      articles: featuredArticles,
+    },
   };
 }
