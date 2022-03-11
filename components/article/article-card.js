@@ -12,7 +12,7 @@ import {
 
 const ArticleCard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { slug, title, date, image, excerpt } = props.article;
+  const { slug, title, date, image, excerpt, category, view } = props.article;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -41,15 +41,18 @@ const ArticleCard = (props) => {
               <Typography variant="h5" component="div">
                 {title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" noWrap>
                 {excerpt}
               </Typography>
+              <Typography variant="body2" color="text.secondary" pt={1} align="inherit">
+                {`${category} | ${date} | ${view} views`}
+              </Typography>
             </CardContent>
-            <CardActions>
+            {/* <CardActions>
               <Button size="small" color="inherit">
                 Read More
               </Button>
-            </CardActions>
+            </CardActions> */}
             {isLoading && <LinearProgress />}
           </Card>
         </a>

@@ -16,7 +16,7 @@ const ArticlePage = (props) => {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={2}
+        spacing={4}
         pt={2}
       >
         <Grid item xs={12}>
@@ -41,10 +41,8 @@ export async function getStaticProps() {
   // const data = JSON.parse(jsonData);
 
   // Get data from backend
-  const response = await fetch(`${process.env.apiGatewayUrl}/skill`);
+  const response = await fetch(`${process.env.apiGatewayUrl}/article`);
   const data = await response.json();
-
-  // console.log(data);
 
   return {
     props: {
