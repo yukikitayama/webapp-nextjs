@@ -46,15 +46,15 @@ def lambda_handler(event, context):
         client_redis.hincrby(key, 'view')
         
         # Find a single data
-        article = client_redis.hgetall(key)
-        article['_id'] = key
+        keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'slug', 'title', 'view', 'vote']
+        values = client_redis.hmget(key, keys)
+        article = {keys[i]: values[i] for i in range(len(keys))}
+        article['id'] = key
         
         return {
             'statusCode': 200,
             'headers': {'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({
-                'post': article
-            })
+            'body': json.dumps(article)
         }
         
     else:
@@ -72,30 +72,30 @@ def lambda_handler(event, context):
             
             # HMGET gets a list of values for specified keys
             # Redis returns None in Python if a key in HASH does not exist
-            article_data = client_redis.hmget(key, ['title', 'date', 'category', 'view', 'slug', 'excerpt', 'image'])
-            articles.append({
-                '_id': key,
-                'title': article_data[0],
-                'date': article_data[1],
-                'category': article_data[2],
-                # article_data[3] could be None if the page has not been viewed at all
-                'view': article_data[3] if article_data[3] else 0,
-                'slug': article_data[4],
-                'excerpt': article_data[5],
-                'image': article_data[6]
-            })
+            keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'slug', 'title', 'view', 'vote']
+            values = client_redis.hmget(key, keys)
+            article = {keys[i]: values[i] for i in range(len(keys))}
+            article['id'] = key
+            article['is_featured'] = int(article['is_featured']) if article['is_featured'] else 0
+            article['view'] = int(article['view']) if article['view'] else 0
+            article['vote'] = int(article['vote']) if article['vote'] else 0
+            articles.append(article)
             
         return {
             'statusCode': 200,
             'headers': headers,
-            'body': json.dumps({ 'posts': articles })
+            'body': json.dumps(articles)
         }
 
 
 if __name__ == '__main__':
     event = {
         'queryStringParameters': {
-            # 'id': 'article:12'
         }
     }
+    # event = {
+    #     'queryStringParameters': {
+    #         'id': 'article:12'
+    #     }
+    # }
     pprint.pprint(lambda_handler(event, ''))
