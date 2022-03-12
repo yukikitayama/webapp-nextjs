@@ -1,7 +1,10 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import { Fragment } from "react";
 
 import ArticleContent from "../../components/article/article-content";
-import { getArticleData, getArticlesFiles } from '../../helper/article-util';
+import { getArticlesFiles } from '../../helper/article-util';
 
 function ArticleContentPage(props) {
   const { article } = props;
@@ -18,14 +21,36 @@ function ArticleContentPage(props) {
   );
 }
 
-export function getStaticProps(context) {
+export async function getStaticProps(context) {
   const { params } = context;
   const { slug } = params;
 
-  // console.log(params);
-  // console.log(slug);
+  // Find article Markdown file
+  const articlesDirectory = path.join(process.cwd(), 'articles');
+  const markdownPath = path.join(articlesDirectory, `${slug}.md`);
+  const markdownFile = fs.readFileSync(markdownPath, 'utf-8');
 
-  const articleData = getArticleData(slug);
+  // Extract id for redis key in data and article content
+  const { data, content } = matter(markdownFile);
+
+  // Get dynamitc metadata from backend
+  const { id } = data;
+  const response = await fetch(`${process.env.apiGatewayUrl}/article?id=${id}`);
+  const responseData = await response.json();
+  const { category, date, excerpt, image, is_featured, title, view, vote } = responseData
+  
+  const articleData = {
+    slug: slug,
+    content: content,
+    category: category,
+    date: date,
+    excerpt: excerpt,
+    image: image,
+    isFeatured: is_featured,
+    title: title,
+    view: view,
+    vote: vote  
+  }
 
   return {
     props: {
