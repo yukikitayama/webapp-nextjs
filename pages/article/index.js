@@ -44,9 +44,11 @@ export async function getStaticProps() {
   const response = await fetch(`${process.env.apiGatewayUrl}/article`);
   const data = await response.json();
 
+  const articles = data.posts.filter(article => article.image);
+
   return {
     props: {
-      articles: data.posts,
+      articles: articles,
     },
     revalidate: 60,
   };
