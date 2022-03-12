@@ -1,9 +1,10 @@
 import { Fragment } from "react";
+import Link from "next/link";
 import { Grid, Typography, Button } from "@mui/material";
 
-import ExpenseCard from '../../components/expense/expense-card';
-import MonthlyExpense from '../../components/expense/monthly-expense';
-import ExpenseTrend from '../../components/expense/expense-trend';
+import ExpenseCard from "../../components/expense/expense-card";
+import MonthlyExpense from "../../components/expense/monthly-expense";
+import ExpenseTrend from "../../components/expense/expense-trend";
 import ExpenseTable from "../../components/expense/expense-table";
 
 const ExpensePage = () => {
@@ -22,9 +23,14 @@ const ExpensePage = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" sx={{ width: { xs: "100%", md: "30%" } }}>
-            Add New Item
-          </Button>
+          <Link href="/expense/new-item" passHref>
+            <Button
+              variant="contained"
+              sx={{ width: { xs: "100%", md: "30%" } }}
+            >
+              Add New Item
+            </Button>
+          </Link>
         </Grid>
         <Grid item xs={12}>
           <ExpenseTable />
