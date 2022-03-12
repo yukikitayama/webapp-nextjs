@@ -1,15 +1,23 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-webappnextjs-dev-194711-authRole",
-      "UnauthRoleArn": "arn:aws:iam::018203729878:role/amplify-webappnextjs-dev-194711-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::018203729878:role/amplify-webappnextjs-dev-194711-authRole",
-      "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-webappnextjs-dev-194711-deployment",
-      "UnauthRoleName": "amplify-webappnextjs-dev-194711-unauthRole",
-      "StackName": "amplify-webappnextjs-dev-194711",
-      "StackId": "arn:aws:cloudformation:us-west-1:018203729878:stack/amplify-webappnextjs-dev-194711/b9df3fc0-a1ae-11ec-b00d-022ce793a229",
-      "AmplifyAppId": "dljt0v1rzbo1e"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-webappnextjs-dev-202801-authRole",
+            "UnauthRoleArn": "arn:aws:iam::018203729878:role/amplify-webappnextjs-dev-202801-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::018203729878:role/amplify-webappnextjs-dev-202801-authRole",
+            "Region": "us-west-1",
+            "DeploymentBucketName": "amplify-webappnextjs-dev-202801-deployment",
+            "UnauthRoleName": "amplify-webappnextjs-dev-202801-unauthRole",
+            "StackName": "amplify-webappnextjs-dev-202801",
+            "StackId": "arn:aws:cloudformation:us-west-1:018203729878:stack/amplify-webappnextjs-dev-202801/6e414800-a1b4-11ec-9f4d-02465eede839",
+            "AmplifyAppId": "d2wzely94eynqy"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d2wzely94eynqy",
+                    "type": "cicd"
+                }
+            }
+        }
     }
-  }
 }
