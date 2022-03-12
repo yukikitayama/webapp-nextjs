@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -18,11 +17,7 @@
     "next": "^11.1.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-markdown": "^8.0.0",
+    "react-markdown": "^6.0.3",
     "recharts": "^2.1.9"
-  },
-  "devDependencies": {
-    "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0"
   }
 }
