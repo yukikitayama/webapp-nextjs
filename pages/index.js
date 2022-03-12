@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
 import ExpenseNow from "../components/home-page/expense-now";
-import { getFeaturedArticles } from "../helper/article-util";
+// import { getFeaturedArticles } from "../helper/article-util";
 
 export default function Home(props) {
   return (
@@ -38,8 +38,13 @@ export default function Home(props) {
   );
 }
 
-export function getStaticProps() {
-  const featuredArticles = getFeaturedArticles();
+export async function getStaticProps() {
+  // const featuredArticles = getFeaturedArticles();
+
+  // Get data from backend
+  const response = await fetch(`${process.env.apiGatewayUrl}/article`);
+  const articles = await response.json();
+  const featuredArticles = articles.filter(article => article.is_featured === 1);
 
   return {
     props: {

@@ -25,7 +25,7 @@ const ArticlePage = (props) => {
           </Typography>
         </Grid>
         {articles.map((article) => (
-          <Grid item xs={12} md={6} key={article._id}>
+          <Grid item xs={12} md={6} key={article.id}>
             <ArticleCard article={article} />
           </Grid>
         ))}
@@ -42,13 +42,12 @@ export async function getStaticProps() {
 
   // Get data from backend
   const response = await fetch(`${process.env.apiGatewayUrl}/article`);
-  const data = await response.json();
-
-  const articles = data.posts.filter(article => article.image);
+  const articles = await response.json();
+  const articlesWithImage = articles.filter(article => article.image);
 
   return {
     props: {
-      articles: articles,
+      articles: articlesWithImage,
     },
     revalidate: 60,
   };

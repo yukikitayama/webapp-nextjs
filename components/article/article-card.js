@@ -12,7 +12,7 @@ import {
 
 const ArticleCard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { slug, title, date, image, excerpt, category, view } = props.article;
+  const { slug, title, date, image, excerpt, category, view, vote } = props.article;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -45,7 +45,7 @@ const ArticleCard = (props) => {
                 {excerpt}
               </Typography>
               <Typography variant="body2" color="text.secondary" pt={1} align="inherit">
-                {`${category} | ${date} | ${view} views`}
+                {`${category} | ${date} | ${view} views | ${vote} votes`}
               </Typography>
             </CardContent>
             {/* <CardActions>

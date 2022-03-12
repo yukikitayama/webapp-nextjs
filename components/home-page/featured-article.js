@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { Grid, Typography } from "@mui/material";
 
 import ArticleCard from "../article/article-card";
-// import { getFeaturedArticles } from "../../helper/article-util";
 
 function FeaturedArticle(props) {
   return (
@@ -21,7 +20,7 @@ function FeaturedArticle(props) {
           </Typography>
         </Grid>
         {props.articles.map((article) => (
-          <Grid key={article.slug} item xs={12} md={6}>
+          <Grid key={article.id} item xs={12} md={6}>
             <ArticleCard article={article} />
           </Grid>
         ))}
@@ -30,8 +29,15 @@ function FeaturedArticle(props) {
   );
 }
 
-// export function getStaticProps() {
-//   const featuredArticles = getFeaturedArticles();
+// export async function getStaticProps() {
+  
+//   // Get data from backend
+//   const response = await fetch(`${process.env.apiGatewayUrl}/article`);
+//   const articles = await response.json();
+
+//   console.log(articles);
+
+//   const featuredArticles = articles.filter(article => article.is_featured);
 
 //   return {
 //     props: {
