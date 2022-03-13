@@ -68,7 +68,7 @@ export default function ExpenseNow() {
             Expense: ${expense}
           </Typography>
           <Typography variant="h2" component="div" align="center">
-            {budget - expense > 0 ? `Good` : `Exceed budget by ${expense - budget}`}
+            {budget - expense > 0 ? `Good` : `Exceed: $${expense - budget}`}
           </Typography>
         </div>
       )}

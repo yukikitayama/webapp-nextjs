@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   Box,
   LinearProgress,
@@ -20,6 +21,7 @@ export default function ExpenseTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +51,7 @@ export default function ExpenseTable() {
   };
 
   const clickTableRowHandler = (event, id) => {
-    console.log('Table row clicked');
+    router.push(`/expense/update-item/${id}`);
   };
 
   return (
