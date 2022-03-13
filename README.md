@@ -47,14 +47,14 @@
   - `getServerSideProps()` doesn't require `getStaticPaths()`, because pre-generation of dynamic paths is not needed, because `getServerSideProps()` runs for every incoming request.
 - `fetch()` is available in both `getStaticProps()` and `getServerSideProps()`
 
-## Routing
+### Routing
 
 - Navigating programmatically like `history` of `react-router-dom`.
   - `import { useRouter } from 'next/router';`
   - `const router = useRouter();`
   - `router.push(PATH);`
 
-## Server-Side Code
+### Server-Side Code
 
 - If you wanna use `fs`, you need to make sure the following otherwise NextJS returns error
   - `import fs from 'fs';` at the top of the NextJS page file
@@ -69,14 +69,41 @@
 - NextJS `Link` component with `MUI` button.
   - Wrap MUI button with NextJS Link component and pass `passHref` to Link.
   - [Using Next.js Link Component with Material UI Buttons and Menu Items](https://dev.to/ivandotv/using-next-js-link-component-with-material-ui-buttons-and-menu-items-3m6a)
+- Replace value in `TextField` by `useEffect()`
+  - use `value` and `onChange`, instead of `defaultValue`
+  - [Uncontrolled vs.Controlled](https://mui.com/components/text-fields/#uncontrolled-vs-controlled)
 
-## Amplify
+## AWS
+
+### Lambda
+
+- What `event` object contains
+  - [What is the Handler?](https://aws-lambda-for-python-developers.readthedocs.io/en/latest/02_event_and_context/)
+
+### Amplify
 
 - `amplify add auth`
   - Do you want to use the default authentication and security configuration? Default configuration
   - How do you want users to be able to sign in? Email
   - Do you want to configure advanced settings? No, I am done.
   - `amplify push`
+
+## MongoDB
+
+- Update one document with multiple fields
+  - `from bson.objectId import ObjectId` and `object_id = ObjectId(MONGODB_DOCUMENT_ID_STRING)`
+  - `filter_ = { '_id': object_id }`
+  - `new_values = { '$set': { 'FIELD1': 'VALUE1', 'FIELD2': 'VALUE2' } }`
+  - `COLLECTION.update_one(filter_, new_values)`
+  - [How to update multiple values in Mongodb using pymongo?](https://stackoverflow.com/questions/22447652/how-to-update-multiple-values-in-mongodb-using-pymongo)
+  - [Search by ObjectId in mongodb with PyMongo – Python](https://www.geeksforgeeks.org/search-by-objectid-in-mongodb-with-pymongo-python/)
+  - [Python MongoDB – Update_one()](https://www.geeksforgeeks.org/python-mongodb-update_one/)
+
+## JavaScript
+
+- `fetch()` for `PUT` and `DELETE` data
+  - Both can accept `body: JSON.stringify(DATA)` data.
+  - [FETCH API Part 4/4 (DELETE) by SilvenLEAF](https://dev.to/silvenleaf/fetch-api-easiest-explanation-part-4-4-delete-by-silvenleaf-4376)
 
 ## Udemy
 

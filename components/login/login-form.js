@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { Auth } from "aws-amplify";
 import {
@@ -35,11 +35,11 @@ export default function LoginForm() {
   const logoutHandler = useCallback(async () => {
     try {
       await Auth.signOut();
-      localStorage.removeItem('token');
-      localStorage.removeItem('expirationTime');
+      localStorage.removeItem("token");
+      localStorage.removeItem("expirationTime");
       dispatch(authActions.logout());
     } catch (error) {
-      console.log('error signing out: ', error);
+      console.log("error signing out: ", error);
     }
   }, [dispatch]);
 
@@ -50,7 +50,7 @@ export default function LoginForm() {
 
     try {
       const signInResponse = await Auth.signIn(email, password);
-      
+
       // console.log(signInResponse);
 
       // Only first time
@@ -61,7 +61,7 @@ export default function LoginForm() {
       //   );
       //   console.log('Completed the new password because new password was required')
       // }
-      
+
       const idToken = signInResponse.signInUserSession.idToken;
       const jwtToken = idToken.jwtToken;
 
@@ -69,12 +69,12 @@ export default function LoginForm() {
       // By default, expires in 1 hour
       const exp = idToken.payload.exp;
       const expirationTime = new Date(exp * 1000);
-      
+
       // Update state
-      localStorage.setItem('token', jwtToken);
+      localStorage.setItem("token", jwtToken);
       // toISOString() return UTC datetime string
-      localStorage.setItem('expirationTime', expirationTime.toISOString());
-      dispatch(authActions.login({token: jwtToken}))
+      localStorage.setItem("expirationTime", expirationTime.toISOString());
+      dispatch(authActions.login({ token: jwtToken }));
 
       const remainingTime = calculateRemainingTime(expirationTime);
 
@@ -83,7 +83,7 @@ export default function LoginForm() {
 
       // After successful login, programmatically navigate to expense page
       setIsLoading(false);
-      router.push('/expense');
+      router.push("/expense");
     } catch (error) {
       setIsLoading(false);
       alert(`error signing in: ${error}`);
@@ -113,12 +113,14 @@ export default function LoginForm() {
             />
           </Stack>
         </CardContent>
-        <CardActions>
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" type="submit">
-              Login
-            </Button>
-          </Stack>
+        <CardActions sx={{ m: 1 }}>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ width: { xs: "100%", md: "30%" } }}
+          >
+            Login
+          </Button>
         </CardActions>
         {isLoading && <LinearProgress color="secondary" />}
       </Card>

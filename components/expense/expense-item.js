@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -28,10 +28,12 @@ export default function ExpenseItem() {
   const [date, setDate] = useState(new Date());
   const [item, setItem] = useState("grocery");
   const [type, setType] = useState("normal");
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
   const [place, setPlace] = useState("");
   const [memo, setMemo] = useState("");
+  const [documentId, setDocumentId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [expenseItemMode, setExpenseItemMode] = useState("add-item");
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const idToken = useSelector((state) => state.auth.token);
   const router = useRouter();
@@ -41,16 +43,26 @@ export default function ExpenseItem() {
   useEffect(() => {
     if (router.query.id) {
       const fetchData = async () => {
-        const response = await fetch(`${process.env.apiGatewayUrl}/expense?id=${router.query.id}`);
+        const response = await fetch(
+          `${process.env.apiGatewayUrl}/expense?id=${router.query.id}`
+        );
         const expenseData = await response.json();
         const expense = expenseData.expense;
 
-        setDate(expense.date);
+        // new Date("YYYY-MM-DD") reads it as UTC YYYY-MM-DD 0 hour
+        const timezoneOffset = new Date(expense.date).getTimezoneOffset();
+        const localDate = new Date(
+          new Date(expense.date).getTime() + timezoneOffset * 60 * 1000
+        );
+
+        setDate(localDate);
         setItem(expense.item);
         setType(expense.type);
         setAmount(expense.amount);
         setPlace(expense.place);
         setMemo(expense.memo);
+        setDocumentId(expense._id);
+        setExpenseItemMode("update-item");
       };
 
       setIsSubmitting(true);
@@ -82,21 +94,79 @@ export default function ExpenseItem() {
     event.preventDefault();
 
     setIsSubmitting(true);
-    
+
     // Do this extra step since DATE.toISOString() does not returns YYYY-MM-DD in UTC, but I want it in local timezone
     // Get date string in format YYYY-MM-DD in the local timezone
     // getTime() returns milliseconds since Unix Epoch
     // getTimezoneOffset() returns minutes from UTC
     // Newly created Date object has the same date and time, but in UTC
-    const yyyyMmDd = (new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)).toISOString().split("T")[0];
+    const yyyyMmDd = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60 * 1000
+    )
+      .toISOString()
+      .split("T")[0];
 
     // expense/update path is authenticated to webapp-nextjs Congnito
+    const response = await fetch(
+      `${process.env.apiGatewayUrl}/expense/update`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // This authorization is configured by Amazon Cognito and Amazon API Gateway
+          Authorization: idToken,
+        },
+        body: JSON.stringify({
+          date: yyyyMmDd,
+          item: item,
+          type: type,
+          amount: amount,
+          place: place,
+          memo: memo,
+        }),
+      }
+    );
+
+    response
+      .json()
+      .then((data) => {
+        setIsSubmitting(false);
+        router.push("/expense");
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        alert(`Error: ${error}`);
+      });
+  };
+
+  const addItemButtons = (
+    <Stack direction="row" spacing={2}>
+      <Button variant="contained" type="submit" disabled={!isAuth}>
+        Submit
+      </Button>
+      <Link href="/expense" passHref>
+        <Button variant="contained" color="warning">
+          Cancel
+        </Button>
+      </Link>
+    </Stack>
+  );
+
+  const updateHandler = async () => {
+    setIsSubmitting(true);
+
+    const yyyyMmDd = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60 * 1000
+    )
+      .toISOString()
+      .split("T")[0];
+    
+    // PUT needs MongoDB document ID to update one 
     const response = await fetch(`${process.env.apiGatewayUrl}/expense/update`, {
-      method: "POST",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        // This authorization is configured by Amazon Cognito and Amazon API Gateway
-        "Authorization": idToken
+        'Content-Type': 'application/json',
+        Authorization: idToken
       },
       body: JSON.stringify({
         date: yyyyMmDd,
@@ -105,20 +175,63 @@ export default function ExpenseItem() {
         amount: amount,
         place: place,
         memo: memo,
-      }),
+        id: documentId
+      })
     });
 
     response
       .json()
       .then((data) => {
         setIsSubmitting(false);
-        router.push('/expense');
+        router.push("/expense");
       })
       .catch((error) => {
         setIsSubmitting(false);
         alert(`Error: ${error}`);
       });
   };
+
+  const deleteHandler = async () => {
+    setIsSubmitting(true);
+
+    const response = await fetch(`${process.env.apiGatewayUrl}/expense/update`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: idToken
+      },
+      body: JSON.stringify({
+        id: documentId
+      })
+    });
+
+    response
+      .json()
+      .then((data) => {
+        setIsSubmitting(false);
+        router.push("/expense");
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        alert(`Error: ${error}`);
+      });
+  };
+
+  const updateItemButtons = (
+    <Stack direction="row" spacing={2}>
+      <Button variant="contained" disabled={!isAuth} onClick={updateHandler}>
+        Update
+      </Button>
+      <Link href="/expense" passHref>
+        <Button variant="contained" color="warning">
+          Cancel
+        </Button>
+      </Link>
+      <Button variant="contained" color="error" disabled={!isAuth} onClick={deleteHandler}>
+        Delete
+      </Button>
+    </Stack>
+  );
 
   return (
     <Fragment>
@@ -187,45 +300,32 @@ export default function ExpenseItem() {
                     </FormControl>
                     <TextField
                       label="Amount"
+                      value={amount}
+                      onChange={amountChangeHandler}
                       variant="outlined"
                       required
-                      // type="number"
+                      type="number"
                       inputProps={{ inputMode: "numeric", pattern: "[0-9.]*" }}
                       helperText="Required"
-                      defaultValue={amount}
-                      onChange={amountChangeHandler}
                     />
                     <TextField
                       label="Place"
+                      value={place}
+                      onChange={placeChangeHandler}
                       variant="outlined"
                       required
                       helperText="Required"
-                      defaultValue={place}
-                      onChange={placeChangeHandler}
                     />
                     <TextField
                       label="Memo"
-                      variant="outlined"
-                      defaultValue={memo}
+                      value={memo}
                       onChange={memoChangeHandler}
+                      variant="outlined"
                     />
                   </Stack>
                 </CardContent>
                 <CardActions>
-                  <Stack direction="row" spacing={2}>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      disabled={!isAuth}
-                    >
-                      Submit
-                    </Button>
-                    <Link href="/expense" passHref>
-                      <Button variant="contained" color="warning">
-                        Cancel
-                      </Button>
-                    </Link>
-                  </Stack>
+                  {expenseItemMode === 'add-item' ? addItemButtons : updateItemButtons}
                 </CardActions>
                 {isSubmitting && <LinearProgress color="secondary" />}
               </Card>
