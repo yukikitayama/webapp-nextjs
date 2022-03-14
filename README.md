@@ -104,6 +104,10 @@
 - `fetch()` for `PUT` and `DELETE` data
   - Both can accept `body: JSON.stringify(DATA)` data.
   - [FETCH API Part 4/4 (DELETE) by SilvenLEAF](https://dev.to/silvenleaf/fetch-api-easiest-explanation-part-4-4-delete-by-silvenleaf-4376)
+- Round float to a certain decimap places
+  - `Math.round(FLOAT * 100) / 100`
+  - Do this strange thing because JavaScript `Math.round()` rounds to integer.
+  - [How to round to at most 2 decimal places, if necessary?](https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary)
 
 ## Udemy
 

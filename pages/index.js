@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
 import ExpenseNow from "../components/home-page/expense-now";
+import FitnessNow from '../components/home-page/fitness-now';
 // import { getFeaturedArticles } from "../helper/article-util";
 
 export default function Home(props) {
@@ -32,6 +33,9 @@ export default function Home(props) {
         </Grid>
         <Grid item xs={12}>
           <ExpenseNow />
+        </Grid>
+        <Grid item xs={12}>
+          <FitnessNow />
         </Grid>
       </Grid>
     </Fragment>

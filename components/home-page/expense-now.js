@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { Typography, CircularProgress } from "@mui/material";
+import { Typography, CircularProgress, Box } from "@mui/material";
 
 export default function ExpenseNow() {
   const [budget, setBudget] = useState();
@@ -58,7 +58,11 @@ export default function ExpenseNow() {
       <Typography variant="h4" component="div" align="center">
         Expense Now
       </Typography>
-      {isLoading && <CircularProgress />}
+      {isLoading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <CircularProgress />
+        </Box>
+      )}
       {!isLoading && (
         <div>
           <Typography variant="h2" component="div" align="center">
