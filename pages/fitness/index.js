@@ -1,5 +1,7 @@
+import FitnessGrid from '../../components/fitness/fitness-grid';
+
 const FitnessPage = () => {
-  return <h1>Fitness Page</h1>
+  return <FitnessGrid />
 }
 
 export default FitnessPage;
