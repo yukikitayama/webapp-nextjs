@@ -45,6 +45,8 @@ export async function getStaticProps() {
   const articles = await response.json();
   const articlesWithImage = articles.filter(article => article.image);
 
+  console.log(articles);
+
   return {
     props: {
       articles: articlesWithImage,

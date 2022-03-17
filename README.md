@@ -109,6 +109,31 @@
   - Do this strange thing because JavaScript `Math.round()` rounds to integer.
   - [How to round to at most 2 decimal places, if necessary?](https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary)
 
+## Markdown
+
+- Use `react-markdown` to render Markdown in React.
+  - [react-markdown](https://github.com/remarkjs/react-markdown)
+- Make math block to be centered
+  - Wrap latex expression with 2 dollar signed at the both sides, but need to line break like below.
+  - [How to safely render Markdown using react-markdown](https://blog.logrocket.com/how-to-safely-render-markdown-using-react-markdown/)
+
+```
+$$
+LATEX EXPRESSION
+$$
+
+$$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
+```
+
+## Math
+
+- To show math in `react-markdown`, it needs `remark-math` and `rehype-katex`.
+  - `remark-math` is a package to deal with math in markdown and HTML
+    - [remark-math](https://github.com/remarkjs/remark-math)
+  - `rehype-katex` is a plugin to render math used with `remark-math` to show math in markdown.
+    - [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)
+- `katex` is a JavaScript library to show math in browser.
+
 ## Udemy
 
 - [Next.js & React - The Complete Guide (incl. Two Paths!)](https://www.udemy.com/course/nextjs-react-the-complete-guide/)

@@ -1,5 +1,8 @@
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { Typography, Card, Grid, Box } from "@mui/material";
 
 function ArticleContent(props) {
@@ -32,7 +35,12 @@ function ArticleContent(props) {
             />
           </Box>
           <Box sx={{ px: { xs: 2, md: 6 }, pb: { xs: 2, md: 6 } }}>
-            <ReactMarkdown>{article.content}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {article.content}
+            </ReactMarkdown>
           </Box>
         </Card>
       </Grid>
