@@ -104,6 +104,54 @@ def delete_document(event):
     print(f'delete_one() result.deleted_count: {result.deleted_count}')
 
 
+def get_monthly_expense(start_date: datetime, end_date: datetime, collection):
+    
+    pipeline = [
+        # Convert date string to datetime
+        { '$addFields': { 'convertedDate': { '$toDate': '$date' } } },
+        # Filter documents by start date and end date
+        { '$match': { 'convertedDate': {'$gte': start_date, '$lte': end_date} } },
+        # Calculate monthly total
+        { '$group': {
+            '_id': { 
+                'year': { '$year': '$convertedDate' },
+                'month': { '$month': '$convertedDate' },
+                'type': '$type'
+            },
+            'totalExpense': { '$sum': '$amount' }
+        } },
+        # Sort by calendar
+        { '$sort': { '_id.year': 1, '_id.month': 1, '_id.type': 1 } }
+    ]
+    
+    expenses = []
+    prev_year = None
+    prev_month = None
+    for expense in collection.aggregate(pipeline):
+        
+        print(f'expense: {expense}')
+        
+        year = expense['_id']['year']
+        month = expense['_id']['month']
+        type_ = expense['_id']['type']
+        
+        if year != prev_year and month != prev_month and type_ == 'normal':
+            expense['yearMonth'] = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
+            del expense['_id']
+            expense['totalExpense'] = {}
+            expense['totalExpense']['type'] = type_
+            expense['totalExpense']['amount'] = round(expense['totalExpense'], 2)
+            prev_year = year
+            prev_month = month
+        
+        elif year == prev_year and month == prev_month and type_ == 'special':
+            expense['totalExpense']['']
+        
+        expenses.append(expense)
+
+    return expenses
+
+
 def lambda_handler(event, context):
     
     headers = { 'Access-Control-Allow-Origin': '*' }
@@ -140,10 +188,58 @@ def lambda_handler(event, context):
             'headers': headers,
             'body': json.dumps({ 'message': 'Received DELETE request' })
         }
+        
+    elif event['httpMethod'] == 'GET':
+        print('GET')
+        
+        if event['queryStringParameters'] is not None:
+            
+            query_string_parameters = event['queryStringParameters']
+
+            # Get single expense daa by ID
+            if 'id' in query_string_parameters:
+                pass
+            
+            if 'type' in query_string_parameters:
+
+                type_ = query_string_parameters['type']
+                start_date = query_string_parameters['startDate']
+                start_date = datetime.strptime(start_date, '%Y-%m-%d')
+                end_date = event['queryStringParameters']['endDate']
+                end_date = datetime.strptime(end_date, '%Y-%m-%d')
+                
+                # Get daily total expense
+                if type_ == 'daily':
+                    pass
+
+                # Get monthly total expense
+                if type_ == 'monthly':
+                    
+                    expenses = get_monthly_expense(
+                        start_date=start_date,
+                        end_date=end_date,
+                        collection=collection
+                    )
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': headers,
+                        'body': json.dumps(expenses)
+                    }
+
+        # Get all the expense data by descending date oroder
 
 
 if __name__ == '__main__':
+    # event = {
+    #     'httpMethod': 'POST'
+    # }
     event = {
-        'httpMethod': 'POST'
+        'httpMethod': 'GET',
+        'queryStringParameters': {
+            'type': 'monthly',
+            'startDate': '2022-02-01',
+            'endDate': '2022-03-18'
+        }
     }
     pprint.pprint(lambda_handler(event, None))
