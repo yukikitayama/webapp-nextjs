@@ -23,9 +23,9 @@ const MonthlyExpense = () => {
     const fetchData = async () => {
       setIsLoading(true);
 
-      // Start date is the first day of a 6 months-ago month
+      // Start date is the first day of a 12 months-ago month
       var startDate = new Date();
-      startDate.setMonth(startDate.getMonth() - 6);
+      startDate.setMonth(startDate.getMonth() - 12);
       startDate = new Date(
         startDate.getTime() - startDate.getTimezoneOffset() * 60 * 1000
       );
