@@ -41,7 +41,7 @@ const MonthlyExpense = () => {
 
       try {
         const response = await fetch(
-          `${process.env.apiGatewayUrl}/expense?startDate=${startDate}&endDate=${endDate}`
+          `${process.env.apiGatewayUrl}/expense/get?type=monthly&startDate=${startDate}&endDate=${endDate}`
         );
 
         if (!response.ok) {
@@ -52,7 +52,7 @@ const MonthlyExpense = () => {
 
         // console.log("monthly expense: ", data);
 
-        setExpense(data.expenses);
+        setExpense(data);
       } catch (error) {
         console.log("error: ", error);
       }
@@ -75,7 +75,7 @@ const MonthlyExpense = () => {
       )}
       {!isLoading && (
         <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={expense}>
+          <BarChart data={expense} margin={{ top: 5, right: 5, left:30, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="yearMonth" />
             <YAxis
@@ -89,11 +89,12 @@ const MonthlyExpense = () => {
             />
             {/* <Tooltip /> */}
             <Legend />
-            <Bar dataKey="totalExpense" fill="#80cbc4" />
+            <Bar dataKey="normalExpense" stackId="a" fill="#80cbc4" />
+            <Bar dataKey="specialExpense" stackId="a" fill="#dce775"/>
             <ReferenceLine y={process.env.budget} stroke="#cddc39">
               <Label
                 value={`Budget $${process.env.budget}`}
-                position="top"
+                position="left"
                 fill="#cddc39"
               />
             </ReferenceLine>

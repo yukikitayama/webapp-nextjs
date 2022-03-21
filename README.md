@@ -134,6 +134,11 @@ $$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
     - [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)
 - `katex` is a JavaScript library to show math in browser.
 
+## tsParticles
+
+- [react-tsparticles](https://www.npmjs.com/package/react-tsparticles)
+- [tsParticles - TypeScript Particles](https://github.com/matteobruni/tsparticles)
+
 ## Udemy
 
 - [Next.js & React - The Complete Guide (incl. Two Paths!)](https://www.udemy.com/course/nextjs-react-the-complete-guide/)

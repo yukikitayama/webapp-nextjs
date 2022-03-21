@@ -18,6 +18,7 @@ const ArticlePage = (props) => {
         alignItems="center"
         spacing={4}
         pt={2}
+        pb={10}
       >
         <Grid item xs={12}>
           <Typography variant="h2" component="div" align="center">
