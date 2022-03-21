@@ -118,7 +118,7 @@ def get_monthly_expense(start_date: datetime, end_date: datetime, collection):
                 'month': { '$month': '$convertedDate' },
                 'type': '$type'
             },
-            'totalExpense': { '$sum': '$amount' }
+            'expense': { '$sum': '$amount' }
         } },
         # Sort by calendar
         { '$sort': { '_id.year': 1, '_id.month': 1, '_id.type': 1 } }
@@ -129,25 +129,21 @@ def get_monthly_expense(start_date: datetime, end_date: datetime, collection):
     prev_month = None
     for expense in collection.aggregate(pipeline):
         
-        print(f'expense: {expense}')
-        
+        # Make JSON for front-end
         year = expense['_id']['year']
         month = expense['_id']['month']
         type_ = expense['_id']['type']
+        amount = expense['expense']
+        data = {
+            'yearMonth': f'{year}-0{month}' if month < 10 else f'{year}-{month}',
+            f'{type_}Expense': amount
+        }
         
-        if year != prev_year and month != prev_month and type_ == 'normal':
-            expense['yearMonth'] = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
-            del expense['_id']
-            expense['totalExpense'] = {}
-            expense['totalExpense']['type'] = type_
-            expense['totalExpense']['amount'] = round(expense['totalExpense'], 2)
-            prev_year = year
-            prev_month = month
-        
-        elif year == prev_year and month == prev_month and type_ == 'special':
-            expense['totalExpense']['']
-        
-        expenses.append(expense)
+        # Merge normalExpense and specialExpense if yearMonth are the same
+        if expenses and data['yearMonth'] == expenses[-1]['yearMonth']:
+            expenses[-1][f'{type_}Expense'] = data[f'{type_}Expense']
+        else:
+            expenses.append(data)
 
     return expenses
 
@@ -157,7 +153,7 @@ def lambda_handler(event, context):
     headers = { 'Access-Control-Allow-Origin': '*' }
     
     if event['httpMethod'] == 'POST':
-        print('POST')
+        # print('POST')
         
         add_document(event)
         
@@ -168,7 +164,7 @@ def lambda_handler(event, context):
         }
         
     elif event['httpMethod'] == 'PUT':
-        print('PUT')
+        # print('PUT')
         
         update_document(event)
         
@@ -179,7 +175,7 @@ def lambda_handler(event, context):
         }
     
     elif event['httpMethod'] == 'DELETE':
-        print('DELETE')
+        # print('DELETE')
         
         delete_document(event)
         
@@ -190,7 +186,7 @@ def lambda_handler(event, context):
         }
         
     elif event['httpMethod'] == 'GET':
-        print('GET')
+        # print('GET')
         
         if event['queryStringParameters'] is not None:
             
