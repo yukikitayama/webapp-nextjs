@@ -421,3 +421,46 @@ V^T = V^{-1}
 $$
 
 It means that we don't need to do inverse calculation (difficult compute and time consuming). We can replace it with just a transpose.
+
+## Eigendecomposition of Singular Matrix
+
+Eigendecomposition can also be applied to **singular matrix** (non-invertible matrix, its determinant is 0). In such case, there will be at least one 0 eigenvalue. To know the rank of a singular matrix, we can count the number of non-zero eigenvalues. The **determinant** is equal to the **product** of all **eigenvalues**.
+
+## Diagonalization as Sum of Matrices
+
+From a given square matrix $A$, either a symmetrix matrix or non-symmetrix matrix, **eigendecomposition** and **diagonalization** of the matrix gives us the following
+
+$$
+A = V \Lambda V^{-1}
+$$
+
+$V$ is a matrix with **eigenvectors** in each column, and $\Lambda$ is a diagonal matrix with **eigenvalues** in each diagonal element. From one eigenvector $v_i$ and the corresponding eigenvalue $\lambda_i$ in the decomposition, we can create a matrix like below.
+
+$$
+v_i \lambda_i v_i^{-1} = A_i
+$$
+
+Because $V^{-1} = V^T$ and $v_i^{-1} = v_i^t$,
+
+$$
+v_i \lambda_i v_i^{T} = A_i
+$$
+
+This is a mx1 column vector $v_i$ times a 1xm row vector $v_i^{T}$, scaled by $\lambda_i$, giving us a matrix (mxm). It's actually an **outer product** of an eigenvector scaled by eigenvalue. We can think of this single matrix as a single layer of the given matrix $A$. If we wanna reconstruct $A$ (mxn), we can use the following equation.
+
+$$
+A = \sum_{i=1}^{n} v_i \lambda_i v_i^{-1} = \sum_{i=1}^{n} v_i \lambda_i v_i^{T}
+$$
+
+We can arbitrarily choose any number $n$ as long as it doesn't exceed $n$. So it means that we can only sum the first $i$ layers to recontruct $A$.
+
+**Numpy** (and most of the other softwares) by default normalizes eigenvectors to have a unit length. It means that $V V^{-1}$ gives the matrix which has all 1s in the diagonal elements, because each pair of vectors are orthogonal. So the magnitude of each eigenvector is 1. It means eigenvectors $v_i$ only give us the direction. And eigenvalues $\lambda_i$ give us the importance of each eigenvector.
+
+$$
+||v_i|| = 1
+$$
+$$
+||\lambda_i|| \neq 1
+$$
+
+**Eigenvectors** point in the **important direction** in the space of matrix $A$, and **eigenvalues** tell us **how important** those specific directions are. The larger the magnitude of eigenvalue is, the more important the direction is in the space of matrix $A$.

@@ -68,10 +68,10 @@ export default function FitnessNow() {
       {!isLoading && (
         <Box>
           <Typography variant="h2" component="div" align="center">
-            Daily sleep: {Math.round(averageSleep * 10) / 10} hours
+            Sleep: {Math.round(averageSleep * 10) / 10} hours
           </Typography>
           <Typography variant="h2" component="div" align="center">
-            Daily steps: {Math.round(averageSteps)} steps
+            Steps: {Math.round(averageSteps)} steps
           </Typography>
         </Box>
       )}

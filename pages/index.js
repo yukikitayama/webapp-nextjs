@@ -7,6 +7,7 @@ import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
 import ExpenseNow from "../components/home-page/expense-now";
 import FitnessNow from '../components/home-page/fitness-now';
+import Architecture from '../components/home-page/architecture';
 // import { getFeaturedArticles } from "../helper/article-util";
 
 export default function Home(props) {
@@ -27,6 +28,9 @@ export default function Home(props) {
       >
         <Grid item xs={12}>
           <Hero />
+        </Grid>
+        <Grid item xs={12}>
+          <Architecture />
         </Grid>
         <Grid item xs={12}>
           <FeaturedArticle articles={props.articles} />
