@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import boto3
 from datetime import datetime
+import collections
 import json
 import pprint
 
@@ -77,6 +78,30 @@ def get_monthly_expense(start_date: datetime, end_date: datetime, collection):
     return expenses
 
 
+def get_category_expense(start_date: datetime, end_date: datetime, collection):
+
+    # Get total expense by item
+    pipeline = [
+        { '$addFields': { 'convertedDate': { '$toDate': '$date' } } },
+        { '$match': { 'convertedDate': { '$gte': start_date, '$lte': end_date } } },
+        { '$group': {
+            '_id': { 'item': '$item' },
+            'expense': { '$sum': '$amount' }
+        } },
+        { '$sort': { 'expense': -1 } }
+    ]
+    
+    # Divide the total by the number of months to get monthly average
+    expenses = []
+    diff_month = (end_date - start_date).days / 30
+    for expense in collection.aggregate(pipeline):
+        category = expense['_id']['item']
+        amount = round(expense['expense'] / diff_month, 1)
+        expenses.append({ 'category': category, 'expense': amount })
+
+    return expenses
+
+
 def lambda_handler(event, context):
     
     headers = { 'Access-Control-Allow-Origin': '*' }
@@ -118,6 +143,21 @@ def lambda_handler(event, context):
                         'headers': headers,
                         'body': json.dumps(expenses)
                     }
+                    
+                # Get categorical total expense
+                if type_ == 'category':
+                    
+                    expenses = get_category_expense(
+                        start_date=start_date,
+                        end_date=end_date,
+                        collection=collection
+                    )
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': headers,
+                        'body': json.dumps(expenses)
+                    }
 
         # Get all the expense data by descending date oroder
 
@@ -126,11 +166,19 @@ if __name__ == '__main__':
     # event = {
     #     'httpMethod': 'POST'
     # }
+    # event = {
+    #     'httpMethod': 'GET',
+    #     'queryStringParameters': {
+    #         'type': 'monthly',
+    #         'startDate': '2022-02-01',
+    #         'endDate': '2022-03-18'
+    #     }
+    # }
     event = {
         'httpMethod': 'GET',
         'queryStringParameters': {
-            'type': 'monthly',
-            'startDate': '2022-02-01',
+            'type': 'category',
+            'startDate': '2021-10-01',
             'endDate': '2022-03-18'
         }
     }
