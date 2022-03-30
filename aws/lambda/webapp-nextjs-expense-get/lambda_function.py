@@ -11,6 +11,7 @@ SECRET_ID = 'mongodb-website'
 REGION_NAME = 'us-west-1'
 DATABASE = 'db-react'
 COLLECTION = 'expense'
+CATEGORY_NUM = 7
 
 
 def get_secret(secret_id: str, region_name: str) -> dict:
@@ -94,10 +95,17 @@ def get_category_expense(start_date: datetime, end_date: datetime, collection):
     # Divide the total by the number of months to get monthly average
     expenses = []
     diff_month = (end_date - start_date).days / 30
+    i = 0
+    other = 0
     for expense in collection.aggregate(pipeline):
         category = expense['_id']['item']
         amount = round(expense['expense'] / diff_month, 1)
-        expenses.append({ 'category': category, 'expense': amount })
+        i += 1
+        if i >= CATEGORY_NUM:
+            other += amount
+        else:
+            expenses.append({ 'category': category, 'expense': amount })
+    expenses.append({ 'category': 'other', 'expense': other})
 
     return expenses
 
