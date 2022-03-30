@@ -79,14 +79,14 @@ const ExpenseTrend = () => {
   return (
     <Fragment>
       <Typography variant="h2" component="div">
-        Expense Trend
+        Trend
       </Typography>
       {isLoading && (
         <Box sx={{ display: "flex" }}>
           <CircularProgress color="secondary" />
         </Box>
       )}
-      {!isLoading && <ResponsiveContainer width="100%" height={400}>
+      {!isLoading && <ResponsiveContainer width="100%" height={300}>
         <ComposedChart data={expense}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />

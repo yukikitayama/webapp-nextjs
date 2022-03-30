@@ -66,7 +66,7 @@ const MonthlyExpense = () => {
   return (
     <Fragment>
       <Typography variant="h2" component="div">
-        Monthly Expense
+        Monthly
       </Typography>
       {isLoading && (
         <Box sx={{ display: "flex" }}>
@@ -74,7 +74,7 @@ const MonthlyExpense = () => {
         </Box>
       )}
       {!isLoading && (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart data={expense} margin={{ top: 5, right: 5, left:30, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="yearMonth" />
