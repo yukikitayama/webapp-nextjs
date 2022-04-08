@@ -43,7 +43,7 @@ $$
 
 To understand sigmoid function, start from **exponential function** in the denominator. Exponential function with the **negative input** produces values like below.
 
-![Exponential function](/images/article/logistic-regression/logistic_exponential_function.png)
+![Exponential function {640x480}](/images/article/logistic-regression/logistic_exponential_function.png)
 
  When input of exponentail function is negative of the input like $e^{-z}$, 
 
@@ -52,7 +52,7 @@ To understand sigmoid function, start from **exponential function** in the denom
 
 The behavior of sigmoid function is visualized below
 
-![Sigmoid function](/images/article/logistic-regression/logistic_sigmoid_function.png)
+![Sigmoid function {640x480}](/images/article/logistic-regression/logistic_sigmoid_function.png)
 
 Using our finding from exponential function to sigmoid function,
 
@@ -104,7 +104,7 @@ $$
 
 This **cost function (loss function)** behavior is visualized below.
 
-![Cost function](/images/article/logistic-regression/logistic_cost_function.png)
+![Cost function {1000x500}](/images/article/logistic-regression/logistic_cost_function.png)
 
 In either $y = 1$ or $y = 0$, sigmoid function can output a number between 0 and 1. But because of the cost function, depending on label $y$, the computed cost differs.
 

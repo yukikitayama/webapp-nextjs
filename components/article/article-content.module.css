@@ -1,0 +1,8 @@
+.imageCard {
+
+}
+
+.imageContent {
+  display: flex;
+  justify-content: center;
+}

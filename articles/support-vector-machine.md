@@ -23,7 +23,7 @@ For $cost(\theta^T x)$,
 
 By $z = \theta^T x$ in the below image,
 
-![Cost function](/images/article/support-vector-machine/svm_cost_function.png)
+![Cost function {1000x500}](/images/article/support-vector-machine/svm_cost_function.png)
 
 In **An Introduction to Statistical Learning (ISL)**, where $y$ is labelled as **-1 for negative** and **1 for positive**, the SVM optimization objective is expressed as,
 
@@ -50,7 +50,7 @@ $$
 
 By $z = \beta^T x$ in the below image,
 
-![Hinge loss](/images/article/support-vector-machine/svm_hinge_loss.png)
+![Hinge loss {1000x500}](/images/article/support-vector-machine/svm_hinge_loss.png)
 
 To see the relationship with logistic regression, the optimization objective of logistic regression that we wanna minimize is the followin. $n$ is the number of data. $p$ is the number of features.
 
@@ -69,4 +69,4 @@ $$
 
 In below sigmoid function visualization, $z = \theta^T x$
 
-![Sigmoid function](/images/article/support-vector-machine/svm_sigmoid_function.png)
+![Sigmoid function {640x480}](/images/article/support-vector-machine/svm_sigmoid_function.png)
