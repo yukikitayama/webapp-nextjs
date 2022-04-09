@@ -18,7 +18,7 @@ function ArticleContent(props) {
       if (node.children[0].tagName === "img") {
         const image = node.children[0];
         const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, "");
-        
+
         // const metaWidth = image.properties.alt.match(/{([^}]+)x/);
         // const metaHeight = image.properties.alt.match(/x([^}]+)}/);
         // const width = metaWidth ? +metaWidth[1] : 768;
@@ -69,17 +69,34 @@ function ArticleContent(props) {
             {`${article.category} | ${article.date} | ${article.view} views | ${article.vote} votes`}
           </Typography>
           <Box sx={{ px: { xs: 2, md: 6 } }}>
-            <div className={classes.imageCard}>
+            <div className={classes.imageContainer}>
               <Image
                 src={imagePath}
                 alt={article.title}
-                // layout="intrinsic"
-                layout="responsive"
-                width={2000}
-                height={1000}
+                
+                // This cause stretching...
+                // width={1000}
+                // height={400}
+                
+                // This will fit, but photo position fixed at top left, and cannot center
+                // width={"100%"}
+                // height={"100%"}
+                // layout="responsive"
+                
+                layout="fill"
+                objectFit="cover"
               />
             </div>
           </Box>
+          <br></br>
+          {/* <Box sx={{ px: { xs: 2, md: 6 } }}>
+            <div className={classes.imageContainer}>
+              <img
+                src="/images/article/understand-eigendecomposition/math.jpg"
+                alt=""
+              />
+            </div>
+          </Box> */}
           <Box sx={{ px: { xs: 2, md: 6 }, pb: { xs: 2, md: 6 } }}>
             <ReactMarkdown
               remarkPlugins={[remarkMath]}

@@ -12,3 +12,9 @@
 [Use Next/Image with React Markdown](https://amirardalan.com/blog/use-next-image-with-react-markdown)
 
 [How to Style Nextjs Images using the next/image library](https://www.peterlunch.com/snippets/next-image-styling)
+
+[Image Component and Image Optimization](https://nextjs.org/docs/basic-features/image-optimization#styling)
+
+[How to use Next JS IMAGE inside material ui card media](https://stackoverflow.com/questions/68721497/how-to-use-next-js-image-inside-material-ui-card-media)
+
+[Using next/image with CardMedia in material-ui](https://github.com/vercel/next.js/discussions/23352)

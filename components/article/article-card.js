@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardActions,
@@ -10,9 +11,12 @@ import {
   LinearProgress,
 } from "@mui/material";
 
+import classes from "./article-card.module.css";
+
 const ArticleCard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { slug, title, date, image, excerpt, category, view, vote } = props.article;
+  const { slug, title, date, image, excerpt, category, view, vote } =
+    props.article;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -31,12 +35,22 @@ const ArticleCard = (props) => {
       <Link href={linkPath} passHref>
         <a>
           <Card onClick={cardClickHandler}>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               height="150"
               image={imagePath}
               alt="Image"
-            />
+            /> */}
+            <CardMedia>
+              <div className={classes.imageContainer}>
+                <Image
+                  src={imagePath}
+                  alt="Image"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            </CardMedia>
             <CardContent>
               <Typography variant="h5" component="div">
                 {title}
@@ -44,7 +58,12 @@ const ArticleCard = (props) => {
               <Typography variant="body2" color="text.secondary" noWrap>
                 {excerpt}
               </Typography>
-              <Typography variant="body2" color="text.secondary" pt={1} align="inherit">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                pt={1}
+                align="inherit"
+              >
                 {`${category} | ${date} | ${view} views | ${vote} votes`}
               </Typography>
             </CardContent>
