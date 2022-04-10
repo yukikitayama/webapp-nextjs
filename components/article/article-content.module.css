@@ -14,3 +14,11 @@
   display: flex;
   justify-content: center;
 }
+
+.content h2 {
+  color: #80cbc4;
+}
+
+.content strong {
+  color: #e6ee9c;
+}

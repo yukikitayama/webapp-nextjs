@@ -56,7 +56,13 @@ function ArticleContent(props) {
     <Grid container pt={2} pb={10} justifyContent="center">
       <Grid item xs={12}>
         <Card>
-          <Typography variant="h2" component="div" align="center" pt={2}>
+          <Typography
+            variant="h2"
+            component="div"
+            align="center"
+            pt={2}
+            // sx={{ color: "#64ffda" }}
+          >
             {article.title}
           </Typography>
           <Typography
@@ -73,38 +79,30 @@ function ArticleContent(props) {
               <Image
                 src={imagePath}
                 alt={article.title}
-                
                 // This cause stretching...
                 // width={1000}
                 // height={400}
-                
+
                 // This will fit, but photo position fixed at top left, and cannot center
                 // width={"100%"}
                 // height={"100%"}
                 // layout="responsive"
-                
+
                 layout="fill"
                 objectFit="cover"
               />
             </div>
           </Box>
-          <br></br>
-          {/* <Box sx={{ px: { xs: 2, md: 6 } }}>
-            <div className={classes.imageContainer}>
-              <img
-                src="/images/article/understand-eigendecomposition/math.jpg"
-                alt=""
-              />
-            </div>
-          </Box> */}
           <Box sx={{ px: { xs: 2, md: 6 }, pb: { xs: 2, md: 6 } }}>
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-              components={markdownComponents}
-            >
-              {article.content}
-            </ReactMarkdown>
+            <article className={classes.content}>
+              <ReactMarkdown
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={markdownComponents}
+              >
+                {article.content}
+              </ReactMarkdown>
+            </article>
           </Box>
         </Card>
       </Grid>
