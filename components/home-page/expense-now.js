@@ -1,5 +1,14 @@
 import { Fragment, useState, useEffect } from "react";
-import { Typography, CircularProgress, Box } from "@mui/material";
+import Link from "next/link";
+import {
+  Typography,
+  CircularProgress,
+  Box,
+  Alert,
+  AlertTitle,
+  Stack,
+  Button,
+} from "@mui/material";
 
 export default function ExpenseNow() {
   const [budget, setBudget] = useState();
@@ -44,7 +53,6 @@ export default function ExpenseNow() {
       expenses.expenses.forEach((expense) => {
         currentExpense = currentExpense + expense.totalExpense;
       });
-
       setExpense(Math.round(currentExpense));
 
       setIsLoading(false);
@@ -53,28 +61,46 @@ export default function ExpenseNow() {
     fetchData();
   }, []);
 
+  let currentMonthSeverity;
+  if (expense - budget > process.env.currentMonthExpenseError) {
+    currentMonthSeverity = "error";
+  } else if (expense - budget > process.env.currentMonthExpenseWarning) {
+    currentMonthSeverity = "warning";
+  } else {
+    currentMonthSeverity = "success";
+  }
+
   return (
     <Fragment>
-      <Typography variant="h4" component="div" align="center">
+      <Typography variant="h2" component="div" align="center">
         Expense Now
       </Typography>
       {isLoading && (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CircularProgress />
         </Box>
       )}
       {!isLoading && (
-        <div>
-          <Typography variant="h2" component="div" align="center">
-            Budget: ${budget}
-          </Typography>
-          <Typography variant="h2" component="div" align="center">
-            Expense: ${expense}
-          </Typography>
-          <Typography variant="h2" component="div" align="center">
-            {budget - expense > 0 ? `Good` : `Exceed: $${expense - budget}`}
-          </Typography>
-        </div>
+        <Stack
+          sx={{ width: "100%" }}
+          spacing={2}
+          pt={2}
+        >
+          <Alert
+            severity={currentMonthSeverity}
+            variant="filled"
+            action={
+              <Link href="/expense" passHref>
+                <Button color="inherit" size="large">
+                  Detail
+                </Button>
+              </Link>
+            }
+          >
+            <AlertTitle>Current Month Expense</AlertTitle>
+            Spent ${expense} / Budget ${budget}
+          </Alert>
+        </Stack>
       )}
     </Fragment>
   );

@@ -15,7 +15,7 @@ function FeaturedArticle(props) {
         pt={2}
       >
         <Grid item xs={12}>
-          <Typography variant="h4" component="div" sx={{ textAlign: "center" }}>
+          <Typography variant="h2" component="div" sx={{ textAlign: "center" }}>
             Featured Articles
           </Typography>
         </Grid>

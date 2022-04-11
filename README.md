@@ -62,6 +62,11 @@
   - If `fs` is not used anywhere but the file imports `fs`, NextJS returns error.
 - `process.cwd()` returns root directory, and root directory is not `pages` directory, but root of overall NextJS project.
 
+### Font
+
+- [Font Optimization](https://nextjs.org/docs/basic-features/font-optimization)
+- [Adding Google Fonts to Your Next.js App](https://johnny.am/blog/n2-adding-google-fonts-to-nextjs-project)
+
 ## MUI
 
 - Initial configuration of MUI in NextJS

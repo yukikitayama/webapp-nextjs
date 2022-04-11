@@ -1,5 +1,14 @@
 import { Fragment, useState, useEffect } from "react";
-import { Typography, CircularProgress, Box } from "@mui/material";
+import Link from "next/link";
+import {
+  Typography,
+  CircularProgress,
+  Box,
+  Alert,
+  AlertTitle,
+  Stack,
+  Button,
+} from "@mui/material";
 
 export default function FitnessNow() {
   const [averageSleep, setAverageSleep] = useState();
@@ -31,8 +40,8 @@ export default function FitnessNow() {
       responseSleepData.data.forEach((element) => {
         sumSleepMinute = sumSleepMinute + element.value;
         numSleep++;
-      })
-      const averageSleepHour = (sumSleepMinute / numSleep) / 60;
+      });
+      const averageSleepHour = sumSleepMinute / numSleep / 60;
       setAverageSleep(averageSleepHour);
 
       // Get average daily steps
@@ -45,8 +54,8 @@ export default function FitnessNow() {
       responseStepsData.data.forEach((element) => {
         sumSteps = sumSteps + element.value;
         numSteps++;
-      })
-      const averageSteps = (sumSteps / numSteps);
+      });
+      const averageSteps = sumSteps / numSteps;
       setAverageSteps(averageSteps);
 
       setIsLoading(false);
@@ -55,9 +64,27 @@ export default function FitnessNow() {
     fetchData();
   }, []);
 
+  let sleepSeverity;
+  if (averageSleep < process.env.averageSleepError) {
+    sleepSeverity = "error";
+  } else if (averageSleep < process.env.averageSleepWarning) {
+    sleepSeverity = "warning";
+  } else {
+    sleepSeverity = "success";
+  }
+
+  let stepsSeverity;
+  if (averageSteps < process.env.averageStepsError) {
+    stepsSeverity = "error";
+  } else if (averageSteps < process.env.averageStepsWarning) {
+    stepsSeverity = "warning";
+  } else {
+    stepsSeverity = "success";
+  }
+
   return (
     <Fragment>
-      <Typography variant="h4" component="div" align="center">
+      <Typography variant="h2" component="div" align="center">
         Fitness Now
       </Typography>
       {isLoading && (
@@ -66,14 +93,36 @@ export default function FitnessNow() {
         </Box>
       )}
       {!isLoading && (
-        <Box>
-          <Typography variant="h2" component="div" align="center">
-            Sleep: {Math.round(averageSleep * 10) / 10} hours
-          </Typography>
-          <Typography variant="h2" component="div" align="center">
-            Steps: {Math.round(averageSteps)} steps
-          </Typography>
-        </Box>
+        <Stack sx={{ width: "100%" }} spacing={2} pt={2}>
+          <Alert
+            severity={sleepSeverity}
+            variant="filled"
+            action={
+              <Link href="/fitness" passHref>
+                <Button color="inherit" size="large">
+                  Detail
+                </Button>
+              </Link>
+            }
+          >
+            <AlertTitle>Average Sleep</AlertTitle>
+            {Math.round(averageSleep * 10) / 10} hours
+          </Alert>
+          <Alert
+            severity={stepsSeverity}
+            variant="filled"
+            action={
+              <Link href="/fitness" passHref>
+                <Button color="inherit" size="large">
+                  Detail
+                </Button>
+              </Link>
+            }
+          >
+            <AlertTitle>Average Steps</AlertTitle>
+            {Math.round(averageSteps)} steps
+          </Alert>
+        </Stack>
       )}
     </Fragment>
   );

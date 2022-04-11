@@ -7,7 +7,7 @@ import classes from './architecture.module.css';
 export default function Architecture() {
   return (
     <Fragment>
-      <Typography variant="h4" component="div" align="center">
+      <Typography variant="h2" component="div" align="center">
         Architecture
       </Typography>
       <div className={classes.architecture}>
