@@ -1,11 +1,18 @@
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+// import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+// import { dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+// import python from "react-syntax-highlighter/dist/cjs/languages/prism/python";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import { Typography, Card, Grid, Box } from "@mui/material";
 
 import classes from "./article-content.module.css";
+
+// SyntaxHighlighter.registerLanguage('python', python);
 
 function ArticleContent(props) {
   const { article } = props;
@@ -49,6 +56,37 @@ function ArticleContent(props) {
       }
 
       return <p>{paragraph.children}</p>;
+    },
+
+    code(code) {
+      // Need to see the actual objects because code block received different objects depending on types
+      // console.log("code");
+      // console.log(code);
+      // console.log('node.properties');
+      // console.log(code.node.properties);
+      // console.log("node.children");
+      // console.log(code.node.children);
+      // console.log("node.position");
+      // console.log(code.node.position);
+
+      const { inline, node, children, className } = code;
+
+      if (inline) {
+        return <code className={classes.defaultCodeDisplay}>{children}</code>;
+      } else if (!inline && !className) {
+        return (
+          <div className={classes.defaultCodeDisplay}>
+            <code>{children}</code>
+          </div>
+        );
+      } else if (className) {
+        const language = className.split("-")[1];
+        return (
+          <SyntaxHighlighter style={atomDark} language={language}>
+            {children}
+          </SyntaxHighlighter>
+        );
+      }
     },
   };
 

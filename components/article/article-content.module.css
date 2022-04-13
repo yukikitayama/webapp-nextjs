@@ -26,3 +26,19 @@
 .content strong {
   color: #e6ee9c;
 }
+
+.content a {
+  text-decoration: underline;
+}
+
+.content ul {
+  list-style: inside;
+  padding-left: 0;
+}
+
+.defaultCodeDisplay {
+  background-color: rgb(10, 10, 10);
+  color: rgb(245, 245, 245);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
