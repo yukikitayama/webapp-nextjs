@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -13,6 +14,13 @@ import ExpenseCategory from "../../components/expense/expense-category";
 const ExpensePage = () => {
   return (
     <Fragment>
+      <Head>
+        <title>Yuki&apos;s Expense</title>
+        <meta
+          name="description"
+          content="Records Yuki's expense and visualize to gain insight."
+        />
+      </Head>
       <Grid container spacing={2} pt={2} pb={10}>
         <Grid item xs={12} md={4}>
           <ExpenseCard content={<MonthlyExpense />} />

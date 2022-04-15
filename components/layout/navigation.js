@@ -85,9 +85,13 @@ function Navigation() {
           <Typography
             variant="h6"
             component="a"
-            sx={{ mr: 2, display: "flex" }}
+            // sx={{ mr: 2, display: "flex" }}
+            sx={{ mr: 2, display: "flex", fontFamily: "'Press Start 2P', cursive", fontSize: "15px" }}
+            // sx={{ mr: 1, display: "flex", fontFamily: "'VT323', monospace", fontSize: "30px" }}
           >
-            Yuki&apos;s Web App
+            {/* Yuki&apos;s */}
+            {/* Yuki&apos;s Web App */}
+            Yuki&apos;s App
           </Typography>
         </Link>
 

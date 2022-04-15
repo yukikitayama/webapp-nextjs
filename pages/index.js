@@ -15,7 +15,7 @@ export default function Home(props) {
     <Fragment>
       <Head>
         <title>Yuki&apos;s Web App</title>
-        <meta name="description" content="Home page" />
+        <meta name="description" content="Home page of Yuki's Web App. This app blogs technical articles,  and records Yuki's personal expense and fitness data." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Grid

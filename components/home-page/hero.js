@@ -20,7 +20,9 @@ function Hero() {
       </div>
       <h1>Hi, I&apos;m Yuki!</h1>
       <p>Welcome to my web app.</p>
-      <p>Click the hamburger shape or toolbar at the top and enjoy applications.</p>
+      <p>This app has technical articles on statistics and computer science.</p>
+      <p>It also monitors my expense and fitness data.</p>
+      <p>Enjoy!</p>
       <Link
         href="https://www.linkedin.com/in/yukikitayama/"
         target="_blank"

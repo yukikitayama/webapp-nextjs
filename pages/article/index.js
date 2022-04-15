@@ -2,6 +2,7 @@
 // import fs from 'fs/promises';
 // import path from 'path';
 import { Fragment } from "react";
+import Head from "next/head";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
@@ -12,6 +13,10 @@ const ArticlePage = (props) => {
 
   return (
     <Fragment>
+      <Head>
+        <title>Yuki&apos;s Articles</title>
+        <meta name="description" content="Lists all the technical articles about statistics, math, computer science, programming, cloud resource, and more." />
+      </Head>
       <Grid
         container
         direction="row"

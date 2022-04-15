@@ -6,3 +6,15 @@
 .image img {
   border-radius: 50%;
 }
+
+.hero p {
+  /* font-family: 'VT323', monospace; */
+  font-family: 'Press Start 2P', cursive;
+  /* font-size: 25px; */
+  font-size: 10px;
+}
+
+.hero h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: normal;
+}
