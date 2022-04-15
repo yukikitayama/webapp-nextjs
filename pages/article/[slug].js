@@ -57,7 +57,7 @@ export async function getStaticProps(context) {
     view: view,
     vote: vote,
     like: like,
-    articleId: id
+    articleId: id ? id : null
   };
 
   return {
