@@ -2,16 +2,14 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { Auth } from "aws-amplify";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Stack,
-  TextField,
-  Button,
-  LinearProgress,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import { authActions } from "../../store/auth-slice";
 import { calculateRemainingTime } from "../../helper/auth-util";

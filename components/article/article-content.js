@@ -8,7 +8,10 @@ import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
-import { Typography, Card, Grid, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 import classes from "./article-content.module.css";
 

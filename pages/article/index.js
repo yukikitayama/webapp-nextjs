@@ -2,7 +2,8 @@
 // import fs from 'fs/promises';
 // import path from 'path';
 import { Fragment } from "react";
-import { Grid, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import ArticleCard from "../../components/article/article-card";
 

@@ -2,22 +2,20 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Stack,
-  TextField,
-  Select,
-  MenuItem,
-  Button,
-  InputLabel,
-  FormControl,
-  FormHelperText,
-  Grid,
-  LinearProgress,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+import LinearProgress from "@mui/material/LinearProgress";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
@@ -267,6 +265,7 @@ export default function ExpenseItem() {
                         value={item}
                         label="Item *"
                         onChange={itemChangeHandler}
+                        // MenuProps={{ PaperProps: { sx: { maxHeight: 450 } } }}
                       >
                         {expenseItems.map((expenseItem) => (
                           <MenuItem

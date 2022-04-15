@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 // import { useSelector } from 'react-redux';
-import { Typography, Box, CircularProgress } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   ComposedChart,
   Area,

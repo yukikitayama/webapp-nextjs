@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import {
-  Box,
-  LinearProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableFooter,
-  TablePagination,
-  Paper
-} from "@mui/material";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
+import Paper from "@mui/material/Paper";
 
 import TablePaginationActions from "./table-pagination-actions";
 

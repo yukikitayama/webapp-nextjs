@@ -1,5 +1,8 @@
 import { Fragment } from 'react';
-import { Card, CardHeader, CardContent, CardActionArea } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActionArea from "@mui/material/CardActionArea";
 
 const ExpenseCard = (props) => {
   return <Fragment>

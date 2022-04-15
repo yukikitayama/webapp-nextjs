@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 import classes from './architecture.module.css';
 
@@ -17,6 +17,7 @@ export default function Architecture() {
           layout="responsive"
           width={960}
           height={540}
+          priority={true}
         />
       </div>
     </Fragment>

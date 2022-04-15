@@ -1,4 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import {
   LineChart,
   Line,
@@ -9,7 +12,6 @@ import {
   Legend,
   Label,
 } from "recharts";
-import { Typography, CircularProgress, Box } from "@mui/material";
 
 export default function FitnessDaily(props) {
   const [dailyData, setDailyData] = useState();

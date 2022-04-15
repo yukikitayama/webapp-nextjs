@@ -67,6 +67,15 @@
 - [Font Optimization](https://nextjs.org/docs/basic-features/font-optimization)
 - [Adding Google Fonts to Your Next.js App](https://johnny.am/blog/n2-adding-google-fonts-to-nextjs-project)
 
+### Image
+
+- Use `priority` when an image is detected as the LCP, Largest Contentful Paint.
+
+### Bundle Size
+
+- [How to Reduce Next.js Bundle Size](https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375)
+- [Next.js: Reducing Bundle Size When Using Third-Party Libraries](https://betterprogramming.pub/next-js-reducing-bundle-size-when-using-third-party-libraries-db5407252d59)
+
 ## MUI
 
 - Initial configuration of MUI in NextJS
@@ -91,6 +100,9 @@
   - So it's safe to avoid named import for MUI.
   - Using **path import** like `import Button from '@mui/material/Button';` can avoid pulling in unused modules. 
   - [Minimizing bundle size](https://mui.com/material-ui/guides/minimizing-bundle-size/)
+- Select menu popup window size
+  - Automatically scroll will show up when items overflow.
+  - But if you want to configure on your onw, [Material-UI - Apply max-height to Select children](https://stackoverflow.com/questions/61686939/material-ui-apply-max-height-to-select-children)
 
 ## AWS
 

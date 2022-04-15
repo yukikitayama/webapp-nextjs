@@ -13,6 +13,8 @@ export const expenseItems = [
   { item: "Electronics", value: "electronics" },
   { item: "Clothing", value: "clothing" },
   { item: "Home internet", value: "home internet" },
+  { item: "Shipment", value: "shipment" },
+  { item: "Tax", value: "tax" },
 ];
 
 export const expenseTypes = [

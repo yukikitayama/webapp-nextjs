@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useCallback } from "react";
 import { useDispatch } from 'react-redux';
 import { Auth } from 'aws-amplify';
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 
 import Navigation from "./navigation";
 import { authActions } from '../../store/auth-slice';

@@ -1,14 +1,12 @@
 import { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
-import {
-  Typography,
-  CircularProgress,
-  Box,
-  Alert,
-  AlertTitle,
-  Stack,
-  Button,
-} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 export default function ExpenseNow() {
   const [budget, setBudget] = useState();

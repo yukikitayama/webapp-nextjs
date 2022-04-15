@@ -1,5 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
-import { Typography, Box, CircularProgress } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   PieChart,
   Pie,
