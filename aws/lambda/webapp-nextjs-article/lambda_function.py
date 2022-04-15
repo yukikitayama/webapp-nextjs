@@ -42,18 +42,33 @@ def lambda_handler(event, context):
     ):
         key = event['queryStringParameters']['id']
         
+        # Like The Article action
+        if 'action' in event['queryStringParameters']:
+            client_redis.hincrby(key, 'like')
+            likes = int(client_redis.hget(key, 'like'))
+            
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps({ 'likes': likes })
+            }
+        
         # Increment view because a user accesses an individual article to read it
         client_redis.hincrby(key, 'view')
         
         # Find a single data
-        keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'slug', 'title', 'view', 'vote']
+        keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'like', 'slug', 'title', 'view', 'vote']
         values = client_redis.hmget(key, keys)
         article = {keys[i]: values[i] for i in range(len(keys))}
         article['id'] = key
+        article['is_featured'] = int(article['is_featured']) if article['is_featured'] else 0
+        article['view'] = int(article['view']) if article['view'] else 0
+        article['vote'] = int(article['vote']) if article['vote'] else 0
+        article['like'] = int(article['like']) if article['like'] else 0
         
         return {
             'statusCode': 200,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': headers,
             'body': json.dumps(article)
         }
         
@@ -72,13 +87,14 @@ def lambda_handler(event, context):
             
             # HMGET gets a list of values for specified keys
             # Redis returns None in Python if a key in HASH does not exist
-            keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'slug', 'title', 'view', 'vote']
+            keys = ['category', 'date', 'excerpt', 'image', 'is_featured', 'last_updated', 'like', 'slug', 'title', 'view', 'vote']
             values = client_redis.hmget(key, keys)
             article = {keys[i]: values[i] for i in range(len(keys))}
             article['id'] = key
             article['is_featured'] = int(article['is_featured']) if article['is_featured'] else 0
             article['view'] = int(article['view']) if article['view'] else 0
             article['vote'] = int(article['vote']) if article['vote'] else 0
+            article['like'] = int(article['like']) if article['like'] else 0
             articles.append(article)
             
         return {
@@ -89,13 +105,19 @@ def lambda_handler(event, context):
 
 
 if __name__ == '__main__':
-    event = {
-        'queryStringParameters': {
-        }
-    }
     # event = {
     #     'queryStringParameters': {
-    #         'id': 'article:12'
     #     }
     # }
+    # event = {
+    #     'queryStringParameters': {
+    #         'id': 'article:17'
+    #     }
+    # }
+    event = {
+        'queryStringParameters': {
+            'id': 'article:17',
+            'action': 'like'
+        }
+    }
     pprint.pprint(lambda_handler(event, ''))
