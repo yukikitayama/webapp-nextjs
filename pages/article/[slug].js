@@ -42,7 +42,7 @@ export async function getStaticProps(context) {
   const { id } = data;
   const response = await fetch(`${process.env.apiGatewayUrl}/article?id=${id}`);
   const responseData = await response.json();
-  const { category, date, excerpt, image, is_featured, title, view, vote } =
+  const { category, date, excerpt, image, is_featured, title, view, vote, like } =
     responseData;
 
   const articleData = {
@@ -56,6 +56,8 @@ export async function getStaticProps(context) {
     title: title,
     view: view,
     vote: vote,
+    like: like,
+    articleId: id
   };
 
   return {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -10,14 +11,19 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 import classes from "./article-content.module.css";
 
 // SyntaxHighlighter.registerLanguage('python', python);
 
 function ArticleContent(props) {
+  const [likes, setLikes] = useState();
+  const [likeButton, setLikeButton] = useState(false);
+
   const { article } = props;
   const imagePath = `/images/article/${article.slug}/${article.image}`;
 
@@ -93,6 +99,15 @@ function ArticleContent(props) {
     },
   };
 
+  const incrementLikeHandler = async () => {
+    const response = await fetch(
+      `${process.env.apiGatewayUrl}/article?id=${article.articleId}&action=like`
+    );
+    const responseData = await response.json();
+    setLikes(responseData.likes);
+    setLikeButton(true);
+  };
+
   return (
     <Grid container pt={2} pb={10} justifyContent="center">
       <Grid item xs={12}>
@@ -113,7 +128,7 @@ function ArticleContent(props) {
             align="center"
             pb={2}
           >
-            {`${article.category} | ${article.date} | ${article.view} views | ${article.vote} votes`}
+            {`${article.category} | ${article.date} | ${article.view} views | ${!likes ? article.like : likes} likes`}
           </Typography>
           <Box sx={{ px: { xs: 2, md: 6 } }}>
             <div className={classes.imageContainer}>
@@ -134,7 +149,15 @@ function ArticleContent(props) {
               />
             </div>
           </Box>
-          <Box sx={{ px: { xs: 2, md: 6 }, pb: { xs: 2, md: 6 } }}>
+          <Box sx={{ px: { xs: 2, md: 6 }, pb: { xs: 2, md: 6 }, pt: 2 }}>
+            <Button
+              variant="contained"
+              startIcon={<ThumbUpIcon />}
+              onClick={incrementLikeHandler}
+              disabled={likeButton}
+            >
+              {!likes ? article.like : likes} likes
+            </Button>
             <article className={classes.content}>
               <ReactMarkdown
                 remarkPlugins={[remarkMath]}
@@ -144,6 +167,14 @@ function ArticleContent(props) {
                 {article.content}
               </ReactMarkdown>
             </article>
+            <Button
+              variant="contained"
+              startIcon={<ThumbUpIcon />}
+              onClick={incrementLikeHandler}
+              disabled={likeButton}
+            >
+              {!likes ? article.like : likes} likes
+            </Button>
           </Box>
         </Card>
       </Grid>

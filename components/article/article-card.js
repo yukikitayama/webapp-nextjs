@@ -13,7 +13,7 @@ import classes from "./article-card.module.css";
 
 const ArticleCard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { slug, title, date, image, excerpt, category, view, vote } =
+  const { slug, title, date, image, excerpt, category, view, vote, like } =
     props.article;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
@@ -62,7 +62,7 @@ const ArticleCard = (props) => {
                 pt={1}
                 align="inherit"
               >
-                {`${category} | ${date} | ${view} views | ${vote} votes`}
+                {`${category} | ${date} | ${view} views | ${like} likes`}
               </Typography>
             </CardContent>
             {/* <CardActions>
