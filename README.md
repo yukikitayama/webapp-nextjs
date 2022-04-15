@@ -71,12 +71,26 @@
 
 - Initial configuration of MUI in NextJS
   - [Next.Js + MUI v5 tutorial](https://dev.to/hajhosein/nextjs-mui-v5-tutorial-2k35)
+  - [How to use Material-UI with Next.js ?](https://www.geeksforgeeks.org/how-to-use-material-ui-with-next-js/)
+  - [Next.js example](https://github.com/mui/material-ui/tree/master/examples/nextjs)
+  - Are `@emotion/cache` and `@emotion/server` necessary?
+  - `@emotion/cache` is necessary for [Server rendering](https://mui.com/material-ui/guides/server-rendering/). It creates a new `emotion cache` on every request.
+  - `@emotion/server` allows to do server-side rendering with emotion to extract critical css, inline critical csss in html to a string and inline critical css in html to a stream
+  - 
+  - Is `@fontsource/roboto` necessary?
 - NextJS `Link` component with `MUI` button.
   - Wrap MUI button with NextJS Link component and pass `passHref` to Link.
   - [Using Next.js Link Component with Material UI Buttons and Menu Items](https://dev.to/ivandotv/using-next-js-link-component-with-material-ui-buttons-and-menu-items-3m6a)
 - Replace value in `TextField` by `useEffect()`
   - use `value` and `onChange`, instead of `defaultValue`
   - [Uncontrolled vs.Controlled](https://mui.com/components/text-fields/#uncontrolled-vs-controlled)
+- Nextjs bundle size becomes large if wrong implementation
+  - For example, `import { Button } from '@mui/material';` is called **named import**
+  - This will increase bundle size unless correctly configured with **ES6**, **webpack** and **parcel**
+  - It means that the sysmte doesn't support **tree-shaking**
+  - So it's safe to avoid named import for MUI.
+  - Using **path import** like `import Button from '@mui/material/Button';` can avoid pulling in unused modules. 
+  - [Minimizing bundle size](https://mui.com/material-ui/guides/minimizing-bundle-size/)
 
 ## AWS
 
@@ -113,6 +127,12 @@
   - `Math.round(FLOAT * 100) / 100`
   - Do this strange thing because JavaScript `Math.round()` rounds to integer.
   - [How to round to at most 2 decimal places, if necessary?](https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary)
+- `const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;`
+  - Default value for **Object destructuring**
+  - Above, if `emotionCache` exists in `props`, use the `emotionCache` in `props`
+  - If `emotionCache` does not exist in `props`, assign `clientSideEmotionCache` to `emotionCache`.
+  - [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+  - [Equal sign inside object destructuring curly braces](https://stackoverflow.com/questions/67844965/equal-sign-inside-object-destructuring-curly-braces)
 
 ## Markdown
 
@@ -147,3 +167,9 @@ $$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
 ## Udemy
 
 - [Next.js & React - The Complete Guide (incl. Two Paths!)](https://www.udemy.com/course/nextjs-react-the-complete-guide/)
+
+## React
+
+- Built-in typechecking
+  - `npm install prop-types`
+  - [Typechecking With PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)

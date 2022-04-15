@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 import Hero from "../components/home-page/hero";
 import FeaturedArticle from "../components/home-page/featured-article";
