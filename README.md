@@ -185,3 +185,8 @@ $$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
 - Built-in typechecking
   - `npm install prop-types`
   - [Typechecking With PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)
+
+## Bundle Size
+
+- [How to Reduce Next.js Bundle Size](https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375)
+- [Reduce AWS Amplify bundle size inside your app](https://medium.com/@madura/reduce-aws-amplify-bundle-size-inside-your-app-feac2e10cd22)

@@ -8,7 +8,7 @@ const lightTheme = createTheme({
       main: teal[200],
     },
     secondary: {
-      main: line[200],
+      main: lime[200],
     },
   },
 });

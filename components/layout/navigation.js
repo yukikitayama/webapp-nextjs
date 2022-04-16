@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 
-// import ThemeToggle from "./theme-toggle";
+import ThemeToggle from "./theme-toggle";
 
 const pages = ["article", "expense", "fitness", "login"];
 const drawerItems = ["Home", "Article", "Expense", "Fitness", "Login"];
@@ -108,7 +108,7 @@ function Navigation() {
           {drawerList}
         </Drawer>
 
-        {/* <ThemeToggle /> */}
+        <ThemeToggle />
       </Toolbar>
     </AppBar>
   );
