@@ -1,11 +1,27 @@
 .hero {
-  text-align: center;
   padding-top: 2rem;
+}
+
+.image {
+  text-align: center;
 }
 
 .image img {
   border-radius: 50%;
 }
+
+.links {
+  text-align: center;
+}
+
+.hero p {
+  /* font-family: 'VT323', monospace; */
+  font-family: "Press Start 2P", cursive;
+  /* font-size: 25px; */
+  font-size: 10px;
+}
+
+/* Comment window */
 
 .window {
   /* background-color: rgba(20, 20, 20, 0.7); */
@@ -25,9 +41,89 @@
   margin: 20px 0;
 }
 
-.hero p {
-  /* font-family: 'VT323', monospace; */
+/* Type animation */
+
+.type {
+  display: inline-block;
+  vertical-align: bottom;
   font-family: "Press Start 2P", cursive;
-  /* font-size: 25px; */
   font-size: 10px;
+  height: 80px;
 }
+
+.type > span {
+  display: grid;
+  height: 1.2em;
+}
+
+.type span span {
+  width: 0%;
+  max-width: max-content;
+  overflow: hidden;
+  height: inherit;
+  word-break: break-all;
+  animation: 
+  c 0.5s infinite steps(1),
+  t 6s linear infinite alternate; 
+}
+.type span span:before {
+  content: " ";
+  display: inline-block;
+}
+
+/* .type span span:nth-child(2) {
+  animation-delay: 2s;
+}
+.type span span:nth-child(3) {
+  animation-delay: 4s;
+}
+.type span span:nth-child(4) {
+  animation-delay: 6s;
+}
+.type span span:nth-child(5) {
+  animation-delay: 8s;
+}
+.type span span:nth-child(6) {
+  animation-delay: 10s;
+} */
+
+@keyframes t {
+  90%,
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes c {
+  0%,
+  100% {
+    box-shadow: 5px 0 0 #0000;
+  }
+}
+
+
+/* Multiple lines type */
+/* https://dev.to/afif/a-multi-line-css-only-typewriter-effect-3op3 */
+/* .typeM {
+  --n: 53;
+  outline:2px solid red;
+  font-family: monospace;
+  font-weight: 700;
+  font-size:35px;
+  background:linear-gradient(#00DFFC 0 0) 0 0;
+  background-size:calc(var(--n)*1ch) 200%;
+  background-repeat:no-repeat;
+  animation: tM calc(var(--n)*.3s) linear infinite alternate;
+}
+@keyframes tM {
+  from {background-size:0 200%}
+}
+.clipM {
+  color:#0000;
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.stepM {
+  --n: 53;
+  animation-timing-function:steps(var(--n))
+} */

@@ -20,7 +20,7 @@ function Hero() {
         />
       </div>
       <Grid container justifyContent="center" alignItems="center">
-        <Grid item sx={{ width: { xs: "100%", md: "50%" } }}>
+        {/* <Grid item sx={{ width: { xs: "100%", md: "50%" } }}>
           <div className={classes.windowOutside}>
             <div className={classes.window}>
               <p>
@@ -30,41 +30,69 @@ function Hero() {
               </p>
             </div>
           </div>
+        </Grid> */}
+        <Grid item sx={{ width: { xs: "100%", md: "30%" } }} pb={2}>
+          <div className={classes.windowOutside}>
+            <div className={classes.window}>
+              <span className={classes.type}>
+                <span>
+                  <span>Hi, I&apos;m Yuki!</span>
+                  <span>Welcome to my web app.</span>
+                  <span>It has articles on statistics</span>
+                  <span>and computer science.</span>
+                  <span>Also monitors my expense and</span>
+                  <span>fitness data. Enjoy!</span>
+                </span>
+              </span>
+            </div>
+          </div>
         </Grid>
+
+        {/* <div className={classes.windowOutside}> */}
+        {/* <div className={classes.window}> */}
+        {/* <span
+          className={`${classes.typeM} ${classes.clipM} ${classes.stepM}`}
+        >
+          CSS only solution for a multi-line typewriter effect.
+        </span> */}
+        {/* </div> */}
+        {/* </div> */}
       </Grid>
 
-      <Link
-        href="https://www.linkedin.com/in/yukikitayama/"
-        target="_blank"
-        color="inherit"
-        p={0.5}
-      >
-        <LinkedInIcon fontSize="large" />
-      </Link>
-      <Link
-        href="https://github.com/yukikitayama"
-        target="_blank"
-        color="inherit"
-        p={0.5}
-      >
-        <GitHubIcon fontSize="large" />
-      </Link>
-      <Link
-        href="https://www.facebook.com/yuki.kitayama"
-        target="_blank"
-        color="inherit"
-        p={0.5}
-      >
-        <FacebookIcon fontSize="large" />
-      </Link>
-      <Link
-        href="https://twitter.com/YukiKitayama1"
-        target="_blank"
-        color="inherit"
-        p={0.5}
-      >
-        <TwitterIcon fontSize="large" />
-      </Link>
+      <div className={classes.links}>
+        <Link
+          href="https://www.linkedin.com/in/yukikitayama/"
+          target="_blank"
+          color="inherit"
+          p={0.5}
+        >
+          <LinkedInIcon fontSize="large" />
+        </Link>
+        <Link
+          href="https://github.com/yukikitayama"
+          target="_blank"
+          color="inherit"
+          p={0.5}
+        >
+          <GitHubIcon fontSize="large" />
+        </Link>
+        <Link
+          href="https://www.facebook.com/yuki.kitayama"
+          target="_blank"
+          color="inherit"
+          p={0.5}
+        >
+          <FacebookIcon fontSize="large" />
+        </Link>
+        <Link
+          href="https://twitter.com/YukiKitayama1"
+          target="_blank"
+          color="inherit"
+          p={0.5}
+        >
+          <TwitterIcon fontSize="large" />
+        </Link>
+      </div>
     </section>
   );
 }
