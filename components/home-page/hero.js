@@ -1,14 +1,18 @@
 import Image from "next/image";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Typewriter from "typewriter-effect";
 
 import classes from "./hero.module.css";
 
 function Hero() {
+  const message = "Hi, I'm Yuki! Welcome to my web app. This app has technical articles on statistics and computer science. It also monitors my expense and fitness. Enjoy!";
+
   return (
     <section className={classes.hero}>
       <div className={classes.image}>
@@ -31,32 +35,23 @@ function Hero() {
             </div>
           </div>
         </Grid> */}
-        <Grid item sx={{ width: { xs: "100%", md: "30%" } }} pb={2}>
-          <div className={classes.windowOutside}>
-            <div className={classes.window}>
-              <span className={classes.type}>
-                <span>
-                  <span>Hi, I&apos;m Yuki!</span>
-                  <span>Welcome to my web app.</span>
-                  <span>It has articles on statistics</span>
-                  <span>and computer science.</span>
-                  <span>Also monitors my expense and</span>
-                  <span>fitness data. Enjoy!</span>
-                </span>
-              </span>
-            </div>
+        <Grid item sx={{ width: { xs: "100%", md: "50%" } }} pb={2}>
+          <div className={classes.windowOutside} >
+            <Box className={classes.window} sx={{ minHeight: { xs: "150px", md: "100px" } }}>
+                <Typewriter
+                  onInit={(typewriter) => {
+                    typewriter
+                      .typeString(message)
+                      // millisecond pause duration after the string is typed
+                      .pauseFor(3000)
+                      .deleteAll()
+                      .start();
+                  }}
+                  options={{ cursor: "", loop: true }}
+                />
+            </Box>
           </div>
         </Grid>
-
-        {/* <div className={classes.windowOutside}> */}
-        {/* <div className={classes.window}> */}
-        {/* <span
-          className={`${classes.typeM} ${classes.clipM} ${classes.stepM}`}
-        >
-          CSS only solution for a multi-line typewriter effect.
-        </span> */}
-        {/* </div> */}
-        {/* </div> */}
       </Grid>
 
       <div className={classes.links}>

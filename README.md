@@ -190,3 +190,8 @@ $$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
 
 - [How to Reduce Next.js Bundle Size](https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375)
 - [Reduce AWS Amplify bundle size inside your app](https://medium.com/@madura/reduce-aws-amplify-bundle-size-inside-your-app-feac2e10cd22)
+
+## Typewriter Effect
+
+- [typewriter-effect](https://www.npmjs.com/package/typewriter-effect)
+- [How to create typewriter effect in ReactJS ?](https://www.geeksforgeeks.org/how-to-create-typewriter-effect-in-reactjs/)

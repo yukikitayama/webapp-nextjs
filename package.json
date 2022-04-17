@@ -30,7 +30,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "recharts": "^2.1.9",
     "rehype-katex": "^6.0.2",
-    "remark-math": "^5.1.1"
+    "remark-math": "^5.1.1",
+    "typewriter-effect": "^2.18.2"
   },
   "devDependencies": {
     "eslint": "8.11.0",
