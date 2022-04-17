@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Link } from "@mui/material";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -18,11 +19,20 @@ function Hero() {
           height={250}
         />
       </div>
-      <h1>Hi, I&apos;m Yuki!</h1>
-      <p>Welcome to my web app.</p>
-      <p>This app has technical articles on statistics and computer science.</p>
-      <p>It also monitors my expense and fitness data.</p>
-      <p>Enjoy!</p>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item sx={{ width: { xs: "100%", md: "50%" } }}>
+          <div className={classes.windowOutside}>
+            <div className={classes.window}>
+              <p>
+                Hi, I&apos;m Yuki! Welcome to my web app. This app has technical
+                articles on statistics and computer science, and monitors my
+                expense and fitness. Enjoy!
+              </p>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
+
       <Link
         href="https://www.linkedin.com/in/yukikitayama/"
         target="_blank"
