@@ -15,6 +15,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import ThemeToggle from "./theme-toggle";
+import pixel from "../../styles/pixel-me.module.css";
 
 const pages = ["article", "expense", "fitness", "login"];
 const drawerItems = ["Home", "Article", "Expense", "Fitness", "Login"];
@@ -76,17 +77,27 @@ function Navigation() {
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 2, display: { xs: "block", md: "none" } }}
+          sx={{ display: { xs: "block", md: "none" } }}
         >
           <MenuIcon />
         </IconButton>
+
+        <div className={pixel["pixel-art-container"]}>
+          <div className={pixel["pixel-me"]}></div>
+        </div>
 
         <Link href="/" passHref>
           <Typography
             variant="h6"
             component="a"
             // sx={{ mr: 2, display: "flex" }}
-            sx={{ mr: 2, display: "flex", fontFamily: "'Press Start 2P', cursive", fontSize: "15px" }}
+            sx={{
+              mr: 2,
+              ml: 2,
+              display: "flex",
+              fontFamily: "'Press Start 2P', cursive",
+              fontSize: "15px",
+            }}
             // sx={{ mr: 1, display: "flex", fontFamily: "'VT323', monospace", fontSize: "30px" }}
           >
             {/* Yuki&apos;s */}
