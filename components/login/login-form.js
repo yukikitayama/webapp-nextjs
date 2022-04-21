@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-// import { Auth } from "aws-amplify";
-import Auth from "@aws-amplify/auth";
+import { Auth } from "aws-amplify";
+// import Auth from "@aws-amplify/auth";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Auth } from "aws-amplify";
-import Auth from "@aws-amplify/auth";
+import { Auth } from "aws-amplify";
+// import Auth from "@aws-amplify/auth";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";

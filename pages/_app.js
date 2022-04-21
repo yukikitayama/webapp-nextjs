@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import Head from "next/head";
-// import { Amplify } from "aws-amplify";
-import Amplify from "@aws-amplify/core";
+import { Amplify } from "aws-amplify";
+// import Amplify from "@aws-amplify/core";
 import awsconfig from "../src/aws-exports";
 import "../styles/globals.css";
 import { CacheProvider } from "@emotion/react";
