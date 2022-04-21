@@ -21,6 +21,18 @@ Reinstall the App to workspace from slack app web page.
 
 When you created the new command in slack app and reinstall the app to your workspace, automatically the newly created command is available in your workspace slack, modification needed on slack end.
 
+## AWS Lambda ans Slack
+
+In `def lambda_handler(event, context):`, `event['body']` will receive a long string of key-value pairs of request data from Slack. It looks like `key1=value1&key2=value2...`.
+
+`channel_name`
+
+When there's nothing after slash command like `/command` typed in Slack, `event['body']` has `&text=&NEXT_KEY=NEXT_VALUE`.
+
+In practice, the Lambda which receives the request from Slack needs to publish to SNS to invoke another Lambda.
+
+Another Lambda invoked by SNS receives an `event` object, which has a key `Sns` which has a value `{'Message': 'SOME_MESSAGE'}`.
+
 ## Cloud Functions and Slack
 
 When Cloud Functions is trigger by HTTP request, the function automatically receives a request object and it contains an attribute `form`. It is a dictionary having the data from Slack. I listed some of the useful items below.
@@ -46,7 +58,7 @@ When receiving request and just response right away, taking about 500 millisecon
 
 Taking about 1500 milliseconds when extracting data from request object.
 
-When publishing message to Pub/Sub, taking about
+When publishing message to Pub/Sub, taking about 1500 milliseconds.
 
 Once instance is created, response is about 50 milliseconds.
 
@@ -65,3 +77,5 @@ Once instance is created, response is about 50 milliseconds.
 - [Introduction to Flask jsonify](https://www.educba.com/flask-jsonify/)
   - `json.dumps()` vs. `flask.jsonify()`
 - [Publishing messages to topics](https://cloud.google.com/pubsub/docs/publisher)
+- [Using AWS Lambda environment variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html)
+- [Working with Amazon SNS with Boto3](https://towardsdatascience.com/working-with-amazon-sns-with-boto3-7acb1347622d)
