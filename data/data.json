@@ -1,7 +1,0 @@
-{ 
-  "articles": [
-    {"id": "a1", "title": "Title 1", "content": "Content 1" }, 
-    {"id": "a2", "title": "Title 2", "content": "Content 2" }, 
-    {"id": "a3", "title": "Title 3", "content": "Content 3" }
-  ]
-}

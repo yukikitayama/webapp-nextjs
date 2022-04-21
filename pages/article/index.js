@@ -1,6 +1,3 @@
-// Import the following 2 things if the data need to be loaded from filesystem
-// import fs from 'fs/promises';
-// import path from 'path';
 import { Fragment } from "react";
 import Head from "next/head";
 import Grid from "@mui/material/Grid";
@@ -42,11 +39,6 @@ const ArticlePage = (props) => {
 };
 
 export async function getStaticProps() {
-  // Get data from filesystem
-  // const filePath = path.join(process.cwd(), 'data', 'data.json');
-  // const jsonData = await fs.readFile(filePath);
-  // const data = JSON.parse(jsonData);
-
   // Get data from backend
   const response = await fetch(`${process.env.apiGatewayUrl}/article`);
   const articles = await response.json();
@@ -58,7 +50,7 @@ export async function getStaticProps() {
     props: {
       articles: articlesWithImage,
     },
-    revalidate: 60,
+    revalidate: 600,
   };
 }
 

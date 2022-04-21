@@ -93,6 +93,10 @@ There is `Jobs` screen in Dataproc Console where we can see the Python `print` o
 
 ## Automate Dataproc
 
+Use Dataproc Python client to start cluster, submit job and stop cluster
+
+To submit job, store the Python code which runs PySpark in Cloud Storage. And the Dataproc Python client code refers the **gsutil URL** of the PySpark Python code.
+
 ## Reference
 
 - [ClusterController](https://googleapis.dev/python/dataproc/latest/dataproc_v1/cluster_controller.html)
