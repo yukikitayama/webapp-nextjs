@@ -100,12 +100,12 @@ function ArticleContent(props) {
   };
 
   const incrementLikeHandler = async () => {
+    setLikeButton(true);
     const response = await fetch(
       `${process.env.apiGatewayUrl}/article?id=${article.articleId}&action=like`
     );
     const responseData = await response.json();
     setLikes(responseData.likes);
-    setLikeButton(true);
   };
 
   return (
