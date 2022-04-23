@@ -190,6 +190,8 @@ $$THIS RENDERS LATEX, BUT IT WON'T BE CENTERED$$
 
 - [How to Reduce Next.js Bundle Size](https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375)
 - [Reduce AWS Amplify bundle size inside your app](https://medium.com/@madura/reduce-aws-amplify-bundle-size-inside-your-app-feac2e10cd22)
+- [Reducing JavaScript Size](https://nextjs.org/docs/going-to-production#reducing-javascript-size)
+- [First Load JS shared by all is rather heavy in next.js](https://stackoverflow.com/questions/65453801/first-load-js-shared-by-all-is-rather-heavy-in-next-js)
 
 ## Typewriter Effect
 
