@@ -7,7 +7,7 @@ REGION_NAME = 'us-west-1'
 
 
 def get_secret(secret_id: str, region_name: str) -> dict:
-    session = boto3.session.Session()
+    session = boto3.Session()
     client = session.client(service_name='secretsmanager', region_name=region_name)
     content = client.get_secret_value(SecretId=secret_id)
     secret_string = content['SecretString']
@@ -33,19 +33,20 @@ def main():
     secret = get_secret(secret_id=SECRET_ID, region_name=REGION_NAME)
     sender = secret['sender']
     recipient = secret['recipient']
-    
+
     # Make SES client
-    client = boto3.client('ses')
+    session = boto3.Session()
+    client = session.client('ses')
     
     # Make email subject
     subject = 'Test sending email by SES Python API'
     
     # Make email body
     body = make_email_body()
-    
+
     # Make source
     source = f"Yuki's App <{sender}>"
-    
+
     # Send email
     response = client.send_email(
         Destination={
