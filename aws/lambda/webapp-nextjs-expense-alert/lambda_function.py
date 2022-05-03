@@ -7,6 +7,7 @@ import calendar
 
 PARAMETER_01 = 'budget'
 PARAMETER_02 = 'budget-warning'
+PARAMETER_03 = 'rent'
 REGION_NAME = 'us-west-1'
 SECRET_ID_01 = 'mongodb-website'
 SECRET_ID_02 = 'aws-ses'
@@ -112,6 +113,7 @@ def lambda_handler(event, context):
     # Get parameter
     budget = int(get_parameter_value(parameter=PARAMETER_01))
     budget_warning = int(get_parameter_value(parameter=PARAMETER_02))
+    rent = int(get_parameter_value(parameter=PARAMETER_03))
 
     # Make dates
     end_date = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -125,7 +127,8 @@ def lambda_handler(event, context):
     now = datetime.now()
     # monthrange() returns (weekday 0-6, days)
     total_days = calendar.monthrange(now.year, now.month)[1]
-    current_budget = (budget / total_days) * current_days
+    increment = ((budget - rent) / total_days) * current_days
+    current_budget = rent + increment
 
     # Get current expense
     normal, special = get_current_expense(start_date=start_date, end_date=end_date)
@@ -138,10 +141,11 @@ def lambda_handler(event, context):
     else:
         print('no alert')
 
-    # Loggin
+    # Logging
     print(f'start_date: {start_date}, end_date: {end_date}, '
           f'normal: {normal}, special: {special}, '
-          f'current_budget: {current_budget}, budget_warning: {budget_warning}')
+          f'current_budget: {int(current_budget)}, budget_warning: {budget_warning}, '
+          f'budget: {budget}, rent: {rent}, increment: {int(increment)}')
 
 
 if __name__ == '__main__':
