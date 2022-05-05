@@ -1,4 +1,10 @@
+## Idea
+
+We can use Spark to do distributed processing and concurrent programming to achieve faster data processing. But I found it was difficult to configure Spark environment. We have Spark service in Google Cloud, so Google Cloud helps us set up Spark environment, and we can focus on using Spark. This article covers how to run **PySpark** in Google Cloud.
+
 ## Dataproc
+
+**Dataproc** is the name of the service to run PySpark in Google Cloud.
 
 ## Cost
 
@@ -7,6 +13,8 @@ It will be more expensive than other serverless services such as **Cloud Funcito
 But there is a way to control the cost to as small as possible. We can minimize the time that Dataproc cluster is running. Start the cluster when you want to submit Spark jobs, and end the cluster as soon as our Spark jobs are finished.
 
 In practice, Spark jobs should be running automatically, so we should use **Dataproc API** to in sequence start the Cluster, submit a Spark job, wait for the job to finish, and end the cluster. So the cost will be minimized.
+
+Also billed a little daily for the persistent disk of the cluster even if the cluster is off.
 
 ## Create Dataproc Cluster
 
@@ -91,6 +99,20 @@ $ gcloud dataproc jobs submit pyspark PYTHON_FILE.py --cluster CLUSTER_NAME --re
 
 There is `Jobs` screen in Dataproc Console where we can see the Python `print` output of each PySpark job.
 
+## Save Data in Dataproc
+
+Dataproc uses **HDFS (Hadoop Distributed File System)**. The HDFS data is stored in **persistent disk** in Google Cloud. It can be found by `Compute Engine` &rarr; `Storage` &rarr; `Disks`.
+
+When using Pandas DataFrame in PySpark, there are 2 ways to save data.
+
+When saving the Spark DataFrame as CSV in local file system, not HDFS,
+
+`df.toPandas().to_csv('FILE_NAME.csv')`
+
+When saving the CSV in HDFS, 
+
+`df.write.csv('FILE_NAME.csv', header=True, mode='overwrite')`
+
 ## Automate Dataproc
 
 Use Dataproc Python client to start cluster, submit job and stop cluster
@@ -103,3 +125,7 @@ To submit job, store the Python code which runs PySpark in Cloud Storage. And th
 - [JobController](https://googleapis.dev/python/dataproc/latest/dataproc_v1/job_controller.html)
 - [Dataproc pricing](https://cloud.google.com/dataproc/pricing)
 - [Google Cloud Pricing Calculator](https://cloud.google.com/products/calculator)
+- [How to export a table dataframe in PySpark to csv?](https://stackoverflow.com/questions/31385363/how-to-export-a-table-dataframe-in-pyspark-to-csv)
+- [Dataproc Hadoop Data Storage](https://cloud.google.com/dataproc/docs/concepts/dataproc-hdfs)
+- [Configure Dataproc Python environment](https://cloud.google.com/dataproc/docs/tutorials/python-configuration)
+- [Parallelizing Downloads with Spark](https://joshua-robinson.medium.com/parallelizing-downloads-with-spark-16bab8e337eb)
