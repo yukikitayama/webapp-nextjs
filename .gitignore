@@ -2,6 +2,7 @@
 env
 aws/lambda/*/package/
 aws/lambda/*/*.zip
+sf-class2-root.crt
 
 # dependencies
 /node_modules
