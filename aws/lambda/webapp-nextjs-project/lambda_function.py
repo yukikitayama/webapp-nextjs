@@ -50,7 +50,8 @@ def add_row(event):
     
     # Get user input
     body = json.loads(event['body'])
-    labels = ','.join(f"'{word}'" for word in body['labels'].split(','))
+    # labels = ','.join(f"'{word}'" for word in body['labels'].split(','))
+    labels = ','.join(f"'{word}'" for word in body['labels'])
     # print(f'labels: {labels}')
     id_ = uuid.uuid4()
     query = f"""
@@ -93,7 +94,7 @@ if __name__ == '__main__':
             'priority': 'medium',
             'startDate': '2022-07-10',
             'dueDate': '2022-07-17',
-            'labels': 'python,javascript'
+            'labels': ['python', 'javascript']
         })
     }
     pprint.pprint(lambda_handler(event, ''))
