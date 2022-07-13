@@ -1,6 +1,6 @@
 from cassandra.cluster import Cluster
 from cassandra import ConsistencyLevel
-from cassandra.query import SimpleStatement
+from cassandra.query import SimpleStatement, dict_factory
 from cassandra.auth import PlainTextAuthProvider
 import boto3
 from ssl import SSLContext, PROTOCOL_TLSv1_2, CERT_REQUIRED
@@ -44,6 +44,7 @@ cluster = Cluster(
 )
 # Establish connections
 session = cluster.connect(KEYSPACE)
+session.row_factory = dict_factory
 
 
 def add_row(event):
@@ -54,12 +55,29 @@ def add_row(event):
     labels = ','.join(f"'{word}'" for word in body['labels'])
     # print(f'labels: {labels}')
     id_ = uuid.uuid4()
+    
+    # When a new task is created, status is set to "TO DO" by default
     query = f"""
-        INSERT INTO webapp.project (id, project, task, priority, start_date, 
-            due_date, labels)
-        VALUES ({id_}, '{body["project"]}', '{body["task"]}', 
-            '{body["priority"]}', '{body["startDate"]}', '{body["dueDate"]}',
-            [{labels}]);
+        INSERT INTO webapp.project (
+            id, 
+            project, 
+            task, 
+            priority, 
+            start_date, 
+            due_date, 
+            labels, 
+            status
+        )
+        VALUES (
+            {id_}, 
+            '{body["project"]}',
+            '{body["task"]}', 
+            '{body["priority"]}',
+            '{body["startDate"]}',
+            '{body["dueDate"]}',
+            [{labels}],
+            'to do'
+        );
     """
     print(query)
     # Wrap queries to specify the consistency level for write
@@ -70,11 +88,48 @@ def add_row(event):
     session.execute(wrapped_query)
     print(f'Uploaded to Cassandra the data with ID: {id_}')
 
+
+def get_tasks():
+    
+    query = 'select * from webapp.project;'
+    
+    result_set = session.execute(query)
+    
+    tasks = []
+    
+    for row in result_set:
+        
+        tasks.append({
+            'id': str(row['id']),
+            'project': row['project'],
+            'task': row['task'],
+            'priority': row['priority'],
+            'startDate': str(row['start_date']),
+            'dueDate': str(row['due_date']),
+            'labels': row['labels'],
+            'status': row['status']
+        })
+    
+    # pprint.pprint(tasks)
+    
+    return tasks
+
+
 def lambda_handler(event, context):
     
     headers = { 'Access-Control-Allow-Origin': '*' }
     
-    if event['httpMethod'] == 'POST':
+    if event['httpMethod'] == 'GET':
+        
+        tasks = get_tasks()
+        
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps(tasks)
+        }
+    
+    elif event['httpMethod'] == 'POST':
         
         add_row(event)
     
@@ -96,5 +151,8 @@ if __name__ == '__main__':
             'dueDate': '2022-07-17',
             'labels': ['python', 'javascript']
         })
+    }
+    event = {
+        'httpMethod': 'GET'
     }
     pprint.pprint(lambda_handler(event, ''))
