@@ -76,7 +76,7 @@ def add_row(event):
             '{body["startDate"]}',
             '{body["dueDate"]}',
             [{labels}],
-            'to do'
+            '{body["status"]}'
         );
     """
     print(query)
@@ -144,6 +144,7 @@ if __name__ == '__main__':
     event = {
         'httpMethod': 'POST',
         'body': json.dumps({
+            'status': 'to do',
             'project': 'webapp',
             'task': 'do task 1',
             'priority': 'medium',
