@@ -52,7 +52,8 @@ def get_keyspaces_cassandra_session(username: str, password: str):
 
 def get_astra_cassandra_session(client_id: str, client_secret: str):
     cloud_config = {
-        'secure_connect_bundle': SECURE_CONNECT_BUNDLE
+        'secure_connect_bundle': SECURE_CONNECT_BUNDLE,
+        'use_default_tempdir': True
     }
     auth_provider = PlainTextAuthProvider(client_id, client_secret)
     cluster = Cluster(
