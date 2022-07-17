@@ -3,6 +3,8 @@ env
 aws/lambda/*/package/
 aws/lambda/*/*.zip
 sf-class2-root.crt
+aws/cloud9/secure-connect-webapp.zip
+aws/lambda/*/secure-connect-webapp.zip
 
 # dependencies
 /node_modules
