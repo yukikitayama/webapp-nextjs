@@ -72,6 +72,11 @@ def get_astra_cassandra_client(client_id: str, client_secret: str):
     return session
 
 
+def delete_table(session):
+    session.execute('drop table if exists project.task;')
+    print(f'Deleted a table project.task')
+
+
 def create_table(session):
     session.execute('use project;')
     query = """
@@ -116,8 +121,8 @@ def upload_data(session, data):
             '{str(dict_["start_date"])}',
             '{str(dict_["due_date"])}',
             {[] if not dict_["labels"] else str(dict_["labels"])},
-            {int(round(datetime.now(tz=pytz.UTC).timestamp()))},
-            {int(round(datetime.now(tz=pytz.UTC).timestamp()))}
+            {int(round(datetime.now(tz=pytz.UTC).timestamp() * 1000))},
+            {int(round(datetime.now(tz=pytz.UTC).timestamp() * 1000))}
         );
         """
         print(query)
@@ -130,6 +135,27 @@ def get_date(session):
     print(result)
     for row in result:
         print(row)
+
+
+def create_archive_table(session):
+    session.execute('use project;')
+    query = """
+    create table archived_task (
+        id uuid primary key,
+        status text,
+        project text,
+        task text,
+        priority text,
+        start_date date,
+        due_date date,
+        labels list<text>,
+        create_timestamp timestamp,
+        last_update_timestamp timestamp,
+        archive_timestamp timestamp
+    );
+    """
+    session.execute(query)
+    print(f'Created an archive table')
 
 
 def main():
@@ -146,19 +172,22 @@ def main():
 
     # Get data from Keyspaces Cassandra
     data = get_keyspaces_cassandra_data(session_keyspaces)
-    print(f'Type: {type(data)}')
-    print(f'Type of element: {type(data[1])}')
-    pprint.pprint(data[1])
-    print(type(data[1]['due_date']))
-    print(str(data[1]['due_date']))
-    print(type(data[1]['id']))
-    print(str(data[1]['id']))
-    print(type(data[1]['labels']))
-    print(str(data[1]['labels']))
-    print()
+    # print(f'Type: {type(data)}')
+    # print(f'Type of element: {type(data[1])}')
+    # pprint.pprint(data[1])
+    # print(type(data[1]['due_date']))
+    # print(str(data[1]['due_date']))
+    # print(type(data[1]['id']))
+    # print(str(data[1]['id']))
+    # print(type(data[1]['labels']))
+    # print(str(data[1]['labels']))
+    # print()
     
     # Get Astra Cassandra client
     session_astra = get_astra_cassandra_client(client_id, client_secret)
+    
+    # Delete table
+    delete_table(session_astra)
     
     # Create table
     create_table(session_astra)
@@ -168,6 +197,9 @@ def main():
     
     # Get data
     get_date(session_astra)
+
+    # Create archive table
+    create_archive_table(session_astra)
 
 
 if __name__ == '__main__':
