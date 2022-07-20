@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
 
 import TaskCard from "./task-card";
 
@@ -22,25 +24,46 @@ const Board = () => {
   }, []);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} direction="row" alignItems="flex-start">
       {isLoading && (
         <Grid item xs={12}>
-          <CircularProgress />
+          <Stack alignItems="center">
+            <CircularProgress />
+          </Stack>
         </Grid>
       )}
       <Grid item xs={12} md={4}>
         <Paper sx={{ p: 2 }} square elevation={3}>
-          TO DO
+          <Alert
+            icon={false}
+            severity="warning"
+            variant="outlined"
+            sx={{ fontWeight: "bold", mb: 2 }}
+          >
+            TO DO
+          </Alert>
+          {!isLoading && tasks.filter((task) => task.status === "to do").map((task) => (
+            <Grid item key={task.id} my={1}>
+              <TaskCard task={task}/>
+            </Grid>
+          ))}
         </Paper>
       </Grid>
       <Grid item xs={12} md={4}>
         <Paper sx={{ p: 2 }} square elevation={3}>
-          IN PROGRESS
+          <Alert
+            icon={false}
+            severity="info"
+            variant="outlined"
+            sx={{ fontWeight: "bold", mb: 2 }}
+          >
+            IN PROGRESS
+          </Alert>
           {!isLoading &&
             tasks
               .filter((task) => task.status === "in progress")
               .map((task) => (
-                <Grid item key={task.id}>
+                <Grid item key={task.id} my={1}>
                   <TaskCard task={task} />
                 </Grid>
               ))}
@@ -48,7 +71,19 @@ const Board = () => {
       </Grid>
       <Grid item xs={12} md={4}>
         <Paper sx={{ p: 2 }} square elevation={3}>
-          DONE
+          <Alert
+            icon={false}
+            severity="success"
+            variant="outlined"
+            sx={{ fontWeight: "bold", mb: 2 }}
+          >
+            DONE
+          </Alert>
+          {!isLoading && tasks.filter((task) => task.status === "done").map((task) => (
+            <Grid item key={task.id} my={1}>
+              <TaskCard task={task} />
+            </Grid>
+          ))}
         </Paper>
       </Grid>
     </Grid>

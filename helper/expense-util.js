@@ -17,7 +17,7 @@ export const expenseItems = [
   { item: "Shipment", value: "shipment" },
   { item: "Commission", value: "commission" },
   { item: "Camping gear", value: "camping gear" },
-  { item: "tennis", value: "tennis" },
+  { item: "Tennis", value: "tennis" },
   { item: "Bike", value: "bike" },
   { item: "Homeware", value: "homeware" },
   { item: "Tax", value: "tax" },
