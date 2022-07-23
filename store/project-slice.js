@@ -1,15 +1,16 @@
-import { createSlice } from "reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { statuses, projects, priorities, labels } from "../helper/project-util";
 
 const initialProjectState = {
-  isDialogOpen: false,
+  isNewTaskDialogOpen: false,
+  isUpdateTaskDialogOpen: false,
   closing: false,
   status: statuses[0].value,
   project: projects[0].value,
   task: "",
   priority: priorities[1].value,
-  startDate: new Date(),
-  dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  startDate: (new Date()).toString(),
+  dueDate: (new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)).toString(),
   labels: []
 };
 
@@ -17,17 +18,23 @@ const projectSlice = createSlice({
   name: "project",
   initialState: initialProjectState,
   reducers: {
-    openTaskDialog(state) {
-      state.isDialogOpen = true;
+    openNewTaskDialog(state) {
+      state.isNewTaskDialogOpen = true;
     },
-    closeTaskDialog(state) {
-      state.isDialogOpen = false;
+    closeNewTaskDialog(state) {
+      state.isNewTaskDialogOpen = false;
+    },
+    openUpdateTaskDialog(state) {
+      state.isUpdateTaskDialogOpen = true;
+    },
+    closeUpdateTaskDialog(state) {
+      state.isUpdateTaskDialogOpen = false;
     },
     updateClosingState(state) {
       state.closing = !state.closing;
     },
     setStatus(state, action) {
-      state.status = action.pyaload.status;
+      state.status = action.payload.status;
     },
     setProject(state, action) {
       state.project = action.payload.project;
