@@ -17,8 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ThemeToggle from "./theme-toggle";
 import pixel from "../../styles/pixel-me.module.css";
 
-const pages = ["article", "expense", "fitness", "login"];
-const drawerItems = ["Home", "Article", "Expense", "Fitness", "Login"];
+const pages = ["project", "article", "expense", "fitness", "login"];
+const drawerItems = ["Home", "Project", "Article", "Expense", "Fitness", "Login"];
 
 function Navigation() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
