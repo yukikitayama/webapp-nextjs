@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -9,6 +10,8 @@ import { projectActions } from "../../store/project-slice";
 const TaskCard = (props) => {
   const { id, status, project, task, priority, startDate, dueDate, labels } =
     props.task;
+  const cardType = props.cardType;
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const openUpdateTaskDialogHandler = () => {
@@ -38,9 +41,19 @@ const TaskCard = (props) => {
     dispatch(projectActions.openUpdateTaskDialog());
   };
 
+  const navigateToProjectPage = () => {
+    router.push("/project");
+  };
+
   return (
     <Card sx={{ boxShadow: 3 }}>
-      <CardActionArea onClick={openUpdateTaskDialogHandler}>
+      <CardActionArea
+        onClick={
+          cardType === "project"
+            ? openUpdateTaskDialogHandler
+            : navigateToProjectPage
+        }
+      >
         <CardContent>
           <Typography variant="subtitle1" component="div">
             {task}

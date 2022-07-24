@@ -46,7 +46,7 @@ const Board = () => {
           </Alert>
           {!isLoading && tasks.filter((task) => task.status === "to do").map((task) => (
             <Grid item key={task.id} my={1}>
-              <TaskCard task={task}/>
+              <TaskCard task={task} cardType="project"/>
             </Grid>
           ))}
         </Paper>
@@ -66,7 +66,7 @@ const Board = () => {
               .filter((task) => task.status === "in progress")
               .map((task) => (
                 <Grid item key={task.id} my={1}>
-                  <TaskCard task={task} />
+                  <TaskCard task={task} cardType="project" />
                 </Grid>
               ))}
         </Paper>
@@ -83,7 +83,7 @@ const Board = () => {
           </Alert>
           {!isLoading && tasks.filter((task) => task.status === "done").map((task) => (
             <Grid item key={task.id} my={1}>
-              <TaskCard task={task} />
+              <TaskCard task={task} cardType="project" />
             </Grid>
           ))}
         </Paper>
