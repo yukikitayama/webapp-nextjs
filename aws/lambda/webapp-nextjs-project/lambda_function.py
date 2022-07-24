@@ -88,7 +88,7 @@ def get_tasks():
             'priority': row['priority'],
             'startDate': str(row['start_date']),
             'dueDate': str(row['due_date']),
-            'labels': row['labels'],
+            'labels': [] if not row['labels'] else row['labels'],
             'status': row['status']
         })
     # print(f'Number of tasks: {len(tasks)}')
