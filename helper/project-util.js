@@ -35,3 +35,12 @@ export const labels = [
   "react",
   "tax",
 ];
+
+export const timestampStringToDateString = (timestampString) => {
+  return new Date(
+    new Date(timestampString).getTime() -
+      new Date(timestampString).getTimezoneOffset() * 60 * 1000
+  )
+    .toISOString()
+    .split("T")[0];
+};

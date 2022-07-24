@@ -5,6 +5,7 @@ const initialProjectState = {
   isNewTaskDialogOpen: false,
   isUpdateTaskDialogOpen: false,
   closing: false,
+  id: "",
   status: statuses[0].value,
   project: projects[0].value,
   task: "",
@@ -33,6 +34,9 @@ const projectSlice = createSlice({
     updateClosingState(state) {
       state.closing = !state.closing;
     },
+    setId(state, action) {
+      state.id = action.payload.id;
+    },
     setStatus(state, action) {
       state.status = action.payload.status;
     },
@@ -53,6 +57,16 @@ const projectSlice = createSlice({
     },
     setLabels(state, action) {
       state.labels = action.payload.labels;
+    },
+    resetTask(state) {
+      state.id = "";
+      state.status = statuses[0].value;
+      state.project = projects[0].value;
+      state.task = "";
+      state.priority = priorities[1].value;
+      state.startDate = (new Date()).toString();
+      state.dueDate = (new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)).toString();
+      state.labels = [];
     }
   }
 });

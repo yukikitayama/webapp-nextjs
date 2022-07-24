@@ -8,10 +8,14 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 import TaskDialogContent from "./task-dialog-content";
 import { projectActions } from "../../store/project-slice";
+import { timestampStringToDateString } from "../../helper/project-util";
 
 const UpdateTaskDialog = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const isUpdateTaskDialogOpen = useSelector((state) => state.project.isUpdateTaskDialogOpen);
+  const isUpdateTaskDialogOpen = useSelector(
+    (state) => state.project.isUpdateTaskDialogOpen
+  );
+  const id = useSelector((state) => state.project.id);
   const status = useSelector((state) => state.project.status);
   const project = useSelector((state) => state.project.project);
   const task = useSelector((state) => state.project.task);
@@ -19,31 +23,145 @@ const UpdateTaskDialog = () => {
   const labels = useSelector((state) => state.project.labels);
   const startDate = useSelector((state) => state.project.startDate);
   const dueDate = useSelector((state) => state.project.dueDate);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const idToken = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
-  const submitTaskHandler = () => {
+  const updateTaskHandler = async () => {
     setIsLoading(true);
 
-    console.log(status);
-    console.log(project);
-    console.log(task);
-    console.log(priority);
-    console.log(labels)
-    console.log(startDate);
-    console.log(dueDate);
+    const startDateString = timestampStringToDateString(startDate);
+    const dueDateString = timestampStringToDateString(dueDate);
+    const body = JSON.stringify({
+      id: id,
+      status: status,
+      project: project,
+      task: task,
+      priority: priority,
+      startDate: startDateString,
+      dueDate: dueDateString,
+      labels: labels,
+    });
+
+    // console.log(body);
+
+    const response = await fetch(
+      `${process.env.apiGatewayUrl}/project/private`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: idToken,
+        },
+        body: body,
+      }
+    );
+
+    response
+      .json()
+      .then((data) => {
+        setIsLoading(false);
+        dispatch(projectActions.resetTask());
+        dispatch(projectActions.closeUpdateTaskDialog());
+        dispatch(projectActions.updateClosingState());
+      })
+      .catch((error) => {
+        setIsLoading(true);
+        alert(`Error: ${error}`);
+      });
+  };
+
+  const archiveTaskHandler = async () => {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.apiGatewayUrl}/project/private`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: idToken,
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      }
+    );
 
     setIsLoading(false);
+
+    if (response.ok) {
+      dispatch(projectActions.resetTask());
+      dispatch(projectActions.closeUpdateTaskDialog());
+      dispatch(projectActions.updateClosingState());
+    }
+  };
+
+  const deleteTaskHandler = async () => {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.apiGatewayUrl}/project/private`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: idToken,
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      }
+    );
+
+    setIsLoading(false);
+
+    if (response.ok) {
+      dispatch(projectActions.resetTask());
+      dispatch(projectActions.closeUpdateTaskDialog());
+      dispatch(projectActions.updateClosingState());
+    }
   };
 
   return (
-    <Dialog onClose={() => dispatch(projectActions.closeUpdateTaskDialog())} open={isUpdateTaskDialogOpen} fullWidth maxWidth="md">
+    <Dialog
+      onClose={() => dispatch(projectActions.closeUpdateTaskDialog())}
+      open={isUpdateTaskDialogOpen}
+      fullWidth
+      maxWidth="md"
+    >
       <DialogTitle>Update task</DialogTitle>
       <TaskDialogContent />
       <DialogActions>
-        <Button variant="text" onClick={() => dispatch(projectActions.closeUpdateTaskDialog())}>Cancel</Button>
-        <Button variant="contained" onClick={submitTaskHandler}>Create</Button>
-        <Button variant="contained" color="warning">Archive</Button>
-        <Button variant="contained" color="error">Delete</Button>
+        <Button
+          variant="text"
+          onClick={() => dispatch(projectActions.closeUpdateTaskDialog())}
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          onClick={updateTaskHandler}
+          disabled={!isAuthenticated}
+        >
+          Update
+        </Button>
+        <Button
+          variant="contained"
+          color="warning"
+          onClick={archiveTaskHandler}
+          disabled={!isAuthenticated}
+        >
+          Archive
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={deleteTaskHandler}
+          disabled={!isAuthenticated}
+        >
+          Delete
+        </Button>
       </DialogActions>
       {isLoading && <LinearProgress />}
     </Dialog>

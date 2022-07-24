@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -10,6 +11,7 @@ import TaskCard from "./task-card";
 const Board = () => {
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const closing = useSelector((state) => state.project.closing);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +23,7 @@ const Board = () => {
     };
 
     fetchData();
-  }, []);
+  }, [closing]);
 
   return (
     <Grid container spacing={2} direction="row" alignItems="flex-start">

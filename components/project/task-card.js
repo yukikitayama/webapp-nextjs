@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { projectActions } from "../../store/project-slice";
 
 const TaskCard = (props) => {
-  const { status, project, task, priority, startDate, dueDate, labels } =
+  const { id, status, project, task, priority, startDate, dueDate, labels } =
     props.task;
   const dispatch = useDispatch();
 
@@ -22,10 +22,8 @@ const TaskCard = (props) => {
       new Date(dueDate).getTime() + timezoneOffset * 60 * 1000
     );
 
-    console.log(localStartDate);
-    console.log(localDueDate);
-
     // Set selected task information to dialog
+    dispatch(projectActions.setId({ id: id }));
     dispatch(projectActions.setStatus({ status: status }));
     dispatch(projectActions.setProject({ project: project }));
     dispatch(projectActions.setTask({ task: task }));
@@ -36,6 +34,7 @@ const TaskCard = (props) => {
     dispatch(projectActions.setDueDate({ dueDate: localDueDate.toString() }));
     dispatch(projectActions.setLabels({ labels: labels }));
 
+    // Open update task dialog
     dispatch(projectActions.openUpdateTaskDialog());
   };
 
