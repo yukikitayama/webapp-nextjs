@@ -15,8 +15,10 @@ export default function Architecture() {
           src="/images/site/website_architecture.png"
           alt="An image showing website architecture diagram"
           layout="responsive"
-          width={960}
-          height={540}
+          // width={960}
+          width={1800}
+          // height={540}
+          height={1401}
           priority={true}
         />
       </div>
