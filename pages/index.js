@@ -3,6 +3,7 @@ import Head from "next/head";
 import Grid from "@mui/material/Grid";
 
 import Hero from "../components/home-page/hero";
+import ProjectInProgress from "../components/home-page/project-in-progress";
 import FeaturedArticle from "../components/home-page/featured-article";
 import ExpenseNow from "../components/home-page/expense-now";
 import FitnessNow from '../components/home-page/fitness-now';
@@ -29,6 +30,9 @@ export default function Home(props) {
         </Grid>
         <Grid item xs={12}>
           <Architecture />
+        </Grid>
+        <Grid item xs={12}>
+          <ProjectInProgress />
         </Grid>
         <Grid item xs={12}>
           <FeaturedArticle articles={props.articles} />
