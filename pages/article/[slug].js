@@ -1,14 +1,22 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import ArticleContent from "../../components/article/article-content";
 import { getArticlesFiles } from "../../helper/article-util";
+import { produceLogToKafka } from "../../helper/kafka-util";
 
 function ArticleContentPage(props) {
   const { article } = props;
+  const router = useRouter();
+
+  useEffect(() => {
+    const path = `/article/${router.query.slug}`
+    produceLogToKafka(path);
+  }, [router.query])
 
   // For fallback is true in getStaticPaths()
   // if (!article) {

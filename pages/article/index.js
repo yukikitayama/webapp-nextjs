@@ -1,12 +1,19 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 import ArticleCard from "../../components/article/article-card";
+import { produceLogToKafka } from "../../helper/kafka-util";
 
 const ArticlePage = (props) => {
   const { articles } = props;
+
+  const router = useRouter();
+  useEffect(() => {
+    produceLogToKafka(router.pathname);
+  }, [router.pathname]);
 
   return (
     <Fragment>

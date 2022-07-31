@@ -1,8 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
 import ExpenseItem from "../../../components/expense/expense-item";
+import { produceLogToKafka } from "../../../helper/kafka-util";
 
 export default function UpdateItemPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const path = `expense/update-item/${router.query.id}`;
+    produceLogToKafka(path);
+  }, [router.query]);
+
   return (
     <Fragment>
       <Head>

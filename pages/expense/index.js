@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import Grid from "@mui/material/Grid";
@@ -10,8 +11,15 @@ import MonthlyExpense from "../../components/expense/monthly-expense";
 import ExpenseTrend from "../../components/expense/expense-trend";
 import ExpenseTable from "../../components/expense/expense-table";
 import ExpenseCategory from "../../components/expense/expense-category";
+import { produceLogToKafka } from "../../helper/kafka-util";
 
 const ExpensePage = () => {
+  const router = useRouter();
+  
+  useEffect(() => {
+    produceLogToKafka(router.pathname);
+  }, [router.pathname]);
+
   return (
     <Fragment>
       <Head>
