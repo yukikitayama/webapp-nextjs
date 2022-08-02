@@ -115,7 +115,11 @@ const TaskDialogContent = () => {
               label="Start date"
               value={startDate}
               onChange={(newValue) => {
-                dispatch(projectActions.setStartDate(newValue.toString()));
+                dispatch(
+                  projectActions.setStartDate({
+                    startDate: newValue.toString(),
+                  })
+                );
               }}
               renderInput={(params) => <TextField {...params} />}
             ></DesktopDatePicker>
@@ -128,7 +132,9 @@ const TaskDialogContent = () => {
               label="Due date"
               value={dueDate}
               onChange={(newValue) => {
-                dispatch(projectActions.setDueDate(newValue.toString()));
+                dispatch(
+                  projectActions.setDueDate({ dueDate: newValue.toString() })
+                );
               }}
               renderInput={(params) => <TextField {...params} />}
             ></DesktopDatePicker>
