@@ -1,8 +1,17 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
 import FitnessGrid from "../../components/fitness/fitness-grid";
+import { produceLogToKafka } from "../../helper/kafka-util";
 
 const FitnessPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    produceLogToKafka(router.pathname);
+  }, [router.pathname]);
+
   return (
     <Fragment>
       <Head>

@@ -1,10 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 
 import LoginForm from "../../components/login/login-form";
+import { produceLogToKafka } from "../../helper/kafka-util";
 
 const LoginPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    produceLogToKafka(router.pathname);
+  }, [router.pathname]);
+
   return (
     <Fragment>
       <Head>

@@ -16,9 +16,9 @@ export default function Architecture() {
           alt="An image showing website architecture diagram"
           layout="responsive"
           // width={960}
-          width={1800}
+          width={3376}
           // height={540}
-          height={1401}
+          height={2398}
           priority={true}
         />
       </div>
